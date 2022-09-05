@@ -15,6 +15,9 @@ public class PropertyKey<T extends IMaterialProperty<T>> {
     public static final PropertyKey<ToolProperty> TOOL = new PropertyKey<>("tool", ToolProperty.class);
     public static final PropertyKey<WireProperties> WIRE = new PropertyKey<>("wire", WireProperties.class);
 
+    // Empty property used to allow property-less Materials without removing base type enforcement
+    public static final PropertyKey<EmptyProperty> EMPTY = new PropertyKey<>("empty", EmptyProperty.class);
+
     private final String key;
     private final Class<T> type;
 
@@ -55,5 +58,13 @@ public class PropertyKey<T extends IMaterialProperty<T>> {
     @Override
     public String toString() {
         return key;
+    }
+
+    private static class EmptyProperty implements IMaterialProperty<EmptyProperty> {
+
+        @Override
+        public void verifyProperty(MaterialProperties properties) {
+            // no-op
+        }
     }
 }
