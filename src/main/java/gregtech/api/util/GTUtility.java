@@ -25,6 +25,7 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.common.ConfigHolder;
 import gregtech.common.items.behaviors.CoverPlaceBehavior;
 import gregtech.common.items.behaviors.CrowbarBehaviour;
+import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.BlockSnow;
@@ -50,10 +51,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
@@ -69,15 +73,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -1099,30 +1101,23 @@ public class GTUtility {
     }
 
     /**
-     * Takes a file path to a json file and trims the path down to the actual file name
-     * Replaces all _ in the file name with spaces and capitalizes the file name
+     * Gather a list of all registered dimensions. Done as a Supplier so that it can be called at any time and catch
+     * dimensions that are registered late
      *
-     * @param name The File path
-     * @return A String of the File name at the end of the file path
+     * @param filter An Optional filter to restrict the returned dimensions
+     * @return A Supplier containing a list of all registered dimensions
      */
-    public static String trimFileName(String name) {
-        FileSystem fs = FileSystems.getDefault();
-        String separator = fs.getSeparator();
+    public static Supplier<List<Integer>> getAllRegisteredDimensions(@Nullable Predicate<WorldProvider> filter) {
+        List<Integer> dims = new ArrayList<>();
 
-        //Remove the leading "folderName\"
-        String[] tempName = name.split(Matcher.quoteReplacement(separator));
-        //Take the last entry in case of nested folders
-        String newName = tempName[tempName.length - 1];
-        //Remove the ".json"
-        tempName = newName.split("\\.");
-        //Take the first entry
-        newName = tempName[0];
-        //Replace all "_" with a space
-        newName = newName.replaceAll("_", " ");
-        //Capitalize the first letter
-        newName = newName.substring(0, 1).toUpperCase() + newName.substring(1);
+        Map<DimensionType, IntSortedSet> dimMap = DimensionManager.getRegisteredDimensions();
+        dimMap.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Integer::intValue)
+                .filter(num -> filter == null || filter.test(DimensionManager.createProviderFor(num)))
+                .forEach(dims::add);
 
-        return newName;
+        return () -> dims;
     }
 
     public static boolean isBlockSnowLayer(@Nonnull IBlockState blockState) {
