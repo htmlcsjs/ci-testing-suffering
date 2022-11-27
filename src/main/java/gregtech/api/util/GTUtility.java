@@ -33,6 +33,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -51,6 +52,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -1137,5 +1139,52 @@ public class GTUtility {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Creates a list of biomes whose weight, as described by the passed Function, differs from the passed original weight
+     * For use in the JEI Ore Spawn Page and JEI Fluid Spawn Page
+     *
+     * @param biomeFunction A Function describing the modified weights of biomes
+     * @param originalWeight The original weight of the biome
+     *
+     * @return A List containing all the modified biomes and their value they are modified by
+     */
+    public static List<String> createSpawnPageBiomeTooltip(Function<Biome, Integer> biomeFunction, int originalWeight) {
+
+        Iterator<Biome> biomeIterator = Biome.REGISTRY.iterator();
+        int biomeWeight;
+        Map<Biome, Integer> modifiedBiomeMap = new HashMap<>();
+        List<String> tooltip = new ArrayList<>();
+
+        //Tests biomes against all registered biomes to find which biomes have had their weights modified
+        while (biomeIterator.hasNext()) {
+
+            Biome biome = biomeIterator.next();
+
+            //Gives the Biome Weight
+            biomeWeight = biomeFunction.apply(biome);
+            //Check if the biomeWeight is modified
+            if (biomeWeight != originalWeight) {
+                modifiedBiomeMap.put(biome, originalWeight + biomeWeight);
+            }
+        }
+
+        if(!modifiedBiomeMap.isEmpty()) {
+            tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("gregtech.jei.ore.biome_weighting_title"));
+        }
+        for (Map.Entry<Biome, Integer> entry : modifiedBiomeMap.entrySet()) {
+            //Don't show non changed weights, to save room
+            if (!(entry.getValue() == originalWeight)) {
+                //Cannot Spawn
+                if (entry.getValue() <= 0) {
+                    tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("gregtech.jei.ore.biome_weighting_no_spawn", entry.getKey().getBiomeName()));
+                } else {
+                    tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("gregtech.jei.ore.biome_weighting", entry.getKey().getBiomeName(), entry.getValue()));
+                }
+            }
+        }
+
+        return tooltip;
     }
 }

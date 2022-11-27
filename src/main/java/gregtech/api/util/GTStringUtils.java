@@ -132,7 +132,5 @@ public class GTStringUtils {
         int startPosition = (maxLength - fontRenderer.getStringWidth(stringToDraw)) / 2;
 
         fontRenderer.drawString(stringToDraw, startPosition, 1, 0x111111);
-
-
     }
 }
