@@ -14,10 +14,10 @@ import gregtech.api.recipes.builders.BlastRecipeBuilder;
 import gregtech.api.util.ItemStackHashStrategy;
 import gregtech.api.util.world.DummyWorld;
 import gregtech.common.metatileentities.MetaTileEntities;
+import gregtech.common.metatileentities.multi.electric.MetaTileEntityElectricBlastFurnace;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityFluidHatch;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityItemBus;
 import gregtech.common.metatileentities.multi.multiblockpart.MetaTileEntityMultiblockPart;
-import gregtech.common.metatileentities.multi.electric.MetaTileEntityElectricBlastFurnace;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -51,10 +51,8 @@ public class IParallelableRecipeLogicTest implements IParallelableRecipeLogic {
         return new ResourceLocation(GTValues.MODID, name);
     }
 
-    private MetaTileEntityElectricBlastFurnace initEBF(int id) {
-
+    private static MetaTileEntityElectricBlastFurnace initEBF(int id) {
         World world = DummyWorld.INSTANCE;
-
 
         mbt = MetaTileEntities.registerMetaTileEntity(id,
                 new MetaTileEntityElectricBlastFurnace(

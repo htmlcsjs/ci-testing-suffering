@@ -22,7 +22,7 @@ public class GTStringUtils {
             MetaItem.MetaValueItem metaValueItem = metaItem.getItem(stack);
             if (metaValueItem == null) {
                 if (metaItem instanceof MetaPrefixItem) {
-                    Material material = ((MetaPrefixItem) metaItem).getMaterial(stack);
+                    Material material = MetaPrefixItem.getMaterial(stack);
                     OrePrefix orePrefix = ((MetaPrefixItem) metaItem).getOrePrefix();
                     return "(MetaItem) OrePrefix: " + orePrefix.name + ", Material: " + material + " * " + stack.getCount();
                 }
@@ -48,7 +48,7 @@ public class GTStringUtils {
             } else if (block instanceof BlockFrame) {
                 id = "frame" + ((BlockFrame) block).getGtMaterial(stack.getMetadata()).toCamelCaseString();
             } else if (block instanceof BlockMaterialPipe) {
-                id = ((BlockMaterialPipe<?, ?, ?>) block).getPrefix().name + ((BlockMaterialPipe<?, ?, ?>) block).getItemMaterial(stack).toCamelCaseString();
+                id = ((BlockMaterialPipe<?, ?, ?>) block).getPrefix().name + BlockMaterialPipe.getItemMaterial(stack).toCamelCaseString();
             }
 
             if (id != null) {

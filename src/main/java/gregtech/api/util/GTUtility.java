@@ -76,6 +76,7 @@ import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -89,6 +90,8 @@ public class GTUtility {
     private static TreeMap<Integer, String> romanNumeralConversions = new TreeMap<>();
 
     private static final NavigableMap<Long, Byte> tierByVoltage = new TreeMap<>();
+
+    private static final Pattern NEW_LINE_PATTERN = Pattern.compile("/n");
 
     static {
         for (int i = 0; i < V.length; i++) {
@@ -1116,5 +1119,10 @@ public class GTUtility {
             return true;
         }
         return false;
+    }
+
+    @Nonnull
+    public static Pattern getForwardNewLineRegex() {
+        return NEW_LINE_PATTERN;
     }
 }

@@ -2,9 +2,15 @@ package gregtech.api.recipes.logic;
 
 import gregtech.api.capability.IMultipleTankHandler;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.recipes.*;
+import gregtech.api.recipes.FluidKey;
+import gregtech.api.recipes.Recipe;
+import gregtech.api.recipes.RecipeBuilder;
+import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.ingredients.GTRecipeInput;
-import gregtech.api.util.*;
+import gregtech.api.util.GTHashMaps;
+import gregtech.api.util.ItemStackKey;
+import gregtech.api.util.OverlayedFluidHandler;
+import gregtech.api.util.OverlayedItemHandler;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -507,7 +513,7 @@ public class ParallelLogic {
 
 
             // Trim the recipe outputs here if required
-            matchingRecipe = matchingRecipe.trimRecipeOutputs(matchingRecipe, recipeMap, mte.getItemOutputLimit(), mte.getFluidOutputLimit());
+            matchingRecipe = Recipe.trimRecipeOutputs(matchingRecipe, recipeMap, mte.getItemOutputLimit(), mte.getFluidOutputLimit());
 
 
             //equivalent of getting the max ratio from the inputs from Parallel logic
