@@ -97,7 +97,7 @@ public class MetaTileEntityHull extends MetaTileEntityMultiblockPart implements 
     public void update() {
         super.update();
         if (isFirstTick() && Loader.isModLoaded(GTValues.MODID_APPENG)) {
-            getProxy().onReady();
+            if (getProxy() != null) getProxy().onReady();
         }
     }
 
