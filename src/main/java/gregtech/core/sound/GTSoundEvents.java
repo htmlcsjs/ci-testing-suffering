@@ -1,6 +1,5 @@
 package gregtech.core.sound;
 
-import gregtech.api.GregTechAPI;
 import net.minecraft.util.SoundEvent;
 
 import static gregtech.api.GregTechAPI.soundManager;

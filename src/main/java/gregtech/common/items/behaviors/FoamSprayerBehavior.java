@@ -3,7 +3,6 @@ package gregtech.common.items.behaviors;
 import gregtech.api.items.metaitem.stats.IItemBehaviour;
 import gregtech.api.items.metaitem.stats.IItemCapabilityProvider;
 import gregtech.api.items.metaitem.stats.IItemDurabilityManager;
-import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.material.Materials;
 import gregtech.common.blocks.BlockFrame;
 import gregtech.common.blocks.MetaBlocks;
@@ -135,7 +134,7 @@ public class FoamSprayerBehavior implements IItemCapabilityProvider, IItemDurabi
         ArrayList<BlockPos> resultAirBlocks = new ArrayList<>();
         observedSet.add(centerPos);
         resultAirBlocks.add(centerPos);
-        Stack<EnumFacing> moveStack = new Stack<>();
+        Deque<EnumFacing> moveStack = new ArrayDeque<>();
         MutableBlockPos currentPos = new MutableBlockPos(centerPos);
         main:
         while (true) {
@@ -166,7 +165,7 @@ public class FoamSprayerBehavior implements IItemCapabilityProvider, IItemDurabi
         observedSet.add(centerPos);
         resultFrameBlocks.add(centerPos);
         IBlockState frameState = null;
-        Stack<EnumFacing> moveStack = new Stack<>();
+        Deque<EnumFacing> moveStack = new ArrayDeque<>();
         MutableBlockPos currentPos = new MutableBlockPos(centerPos);
         main:
         while (true) {

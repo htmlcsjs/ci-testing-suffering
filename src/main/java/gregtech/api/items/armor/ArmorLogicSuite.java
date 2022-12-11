@@ -1,8 +1,6 @@
 package gregtech.api.items.armor;
 
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import gregtech.api.capability.GregtechCapabilities;
 import gregtech.api.capability.IElectricItem;
 import gregtech.api.items.armor.ArmorMetaItem.ArmorMetaValueItem;
@@ -10,7 +8,6 @@ import gregtech.api.items.metaitem.ElectricStats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -45,11 +42,6 @@ public abstract class ArmorLogicSuite implements ISpecialArmorLogic {
 
     @Override
     public abstract void onArmorTick(World world, EntityPlayer player, ItemStack itemStack);
-
-    @Override
-    public int getArmorLayersAmount(ItemStack itemStack) {
-        return 1;
-    }
 
     @Override
     public ArmorProperties getProperties(EntityLivingBase player, @Nonnull ItemStack armor, DamageSource source, double damage, EntityEquipmentSlot equipmentSlot) {
@@ -110,17 +102,8 @@ public abstract class ArmorLogicSuite implements ISpecialArmorLogic {
     }
 
     @Override
-    public void damageArmor(EntityLivingBase entity, ItemStack itemStack, DamageSource source, int damage, EntityEquipmentSlot equipmentSlot) {
-    }
-
-    @Override
     public EntityEquipmentSlot getEquipmentSlot(ItemStack itemStack) {
         return SLOT;
-    }
-
-    @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-        return ImmutableMultimap.of();
     }
 
     @Override

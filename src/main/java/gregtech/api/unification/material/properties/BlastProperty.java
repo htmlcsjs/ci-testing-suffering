@@ -91,8 +91,9 @@ public class BlastProperty implements IMaterialProperty<BlastProperty> {
         else if (gasTierName.equalsIgnoreCase("HIGHER")) return GasTier.HIGHER;
         else if (gasTierName.equalsIgnoreCase("HIGHEST")) return GasTier.HIGHEST;
         else {
-            CraftTweakerAPI.logError("Gas Tier must be either \"LOW\", \"MID\", \"HIGH\", \"HIGHER\", or \"HIGHEST\"");
-            throw new IllegalArgumentException();
+            String message = "Gas Tier must be either \"LOW\", \"MID\", \"HIGH\", \"HIGHER\", or \"HIGHEST\"";
+            CraftTweakerAPI.logError(message);
+            throw new IllegalArgumentException(message);
         }
     }
 

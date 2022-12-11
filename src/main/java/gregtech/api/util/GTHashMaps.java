@@ -10,12 +10,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-
-import static gregtech.api.util.Predicates.not;
 
 public class GTHashMaps {
     /**
