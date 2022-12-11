@@ -434,7 +434,7 @@ public class MetaTileEntityMonitorScreen extends MetaTileEntityMultiblockPart {
     @Override
     public boolean shouldRenderOverlay() {
         MultiblockControllerBase controller = this.getController();
-        return controller instanceof MetaTileEntityCentralMonitor && ((MetaTileEntityCentralMonitor) controller).isActive();
+        return controller instanceof MetaTileEntityCentralMonitor && controller.isActive();
     }
 
     @Override
@@ -469,7 +469,7 @@ public class MetaTileEntityMonitorScreen extends MetaTileEntityMultiblockPart {
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         MultiblockControllerBase controller = this.getController();
-        if (controller instanceof MetaTileEntityCentralMonitor && ((MetaTileEntityCentralMonitor) controller).isActive()) {
+        if (controller instanceof MetaTileEntityCentralMonitor && controller.isActive()) {
             int width = 330;
             int height = 260;
             ToggleButtonWidget[] buttons = new ToggleButtonWidget[5];
@@ -558,7 +558,7 @@ public class MetaTileEntityMonitorScreen extends MetaTileEntityMultiblockPart {
                     .widget(new WidgetMonitorScreen(330, 0, 150, this))
                     .widget(new LabelWidget(15, 13, "gregtech.machine.monitor_screen.name", 0XFFFFFFFF))
                     .widget(new ClickButtonWidget(15, 25, 40, 20, "monitor.gui.title.back", data -> {
-                        if (mainGroup.isVisible() && ((MetaTileEntityCentralMonitor) controller).isActive() && controller.isValid()) {
+                        if (mainGroup.isVisible() && controller.isActive() && controller.isValid()) {
                             MetaTileEntityUIFactory.INSTANCE.openUI(controller.getHolder(), (EntityPlayerMP) entityPlayer);
                         } else if (!mainGroup.isVisible()) {
                             pluginWidget.removePluginWidget();
@@ -716,7 +716,7 @@ public class MetaTileEntityMonitorScreen extends MetaTileEntityMultiblockPart {
 
             MultiblockControllerBase controller = this.getController();
             if (controller instanceof MetaTileEntityCentralMonitor &&
-                    ((MetaTileEntityCentralMonitor) controller).isActive() && controller.getFrontFacing() == facing) {
+                    controller.isActive() && controller.getFrontFacing() == facing) {
                 return handleHitResultWithScale(playerIn, hand, facing, true, hitResult);
             }
         }

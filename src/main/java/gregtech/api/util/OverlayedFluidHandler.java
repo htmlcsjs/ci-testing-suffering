@@ -9,8 +9,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class OverlayedFluidHandler {
@@ -108,7 +106,7 @@ public class OverlayedFluidHandler {
                 // if the tank is empty
                 if (overlayedTank.getFluidKey() == null) {
                     if ((tankDeniesSameFluidFill.contains(overlayed.getTankProperties()[i]) || !this.allowSameFluidFill)) {
-                        IMultipleTankHandler mth = (IMultipleTankHandler) overlayed;
+                        IMultipleTankHandler mth = overlayed;
                         if (mth.getTankAt(i) instanceof NotifiableFluidTankFromList) {
                             NotifiableFluidTankFromList nftfl = (NotifiableFluidTankFromList) mth.getTankAt(i);
                             if (!(uniqueFluidMap.get(nftfl.getFluidTankList().get()).add(toInsert))) {
