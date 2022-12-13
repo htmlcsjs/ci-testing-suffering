@@ -337,7 +337,7 @@ public class BlockPattern {
                                 if (sampleMetaTileEntity != null) {
                                     MetaTileEntity metaTileEntity = ((IGregTechTileEntity) holder).setMetaTileEntity(sampleMetaTileEntity);
                                     blocks.put(pos, metaTileEntity);
-                                    if (found.hasTagCompound() && found.getTagCompound() != null) {
+                                    if (found.getTagCompound() != null) {
                                         metaTileEntity.initFromItemStackData(found.getTagCompound());
                                     }
                                 }

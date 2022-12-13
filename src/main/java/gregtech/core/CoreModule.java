@@ -245,7 +245,7 @@ public class CoreModule implements IGregTechModule {
 
     @Override
     public void loadComplete(FMLLoadCompleteEvent event) {
-        CommonProxy.onLoadComplete(event);
+        proxy.onLoadComplete(event);
     }
 
     @Override
