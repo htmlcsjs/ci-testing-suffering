@@ -22,6 +22,7 @@ import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.ItemMaterialInfo;
 import gregtech.api.util.LocalizationUtils;
 import gregtech.client.utils.TooltipHelper;
+import gregtech.common.ConfigHolder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectMap;
@@ -589,7 +590,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
             behaviour.addInformation(itemStack, lines);
         }
 
-        if (tooltipFlag.isAdvanced()) {
+        if (ConfigHolder.misc.debug) {
             lines.add("MetaItem Id: " + item.unlocalizedName);
         }
     }
