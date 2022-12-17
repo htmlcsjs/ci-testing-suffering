@@ -7,19 +7,21 @@ import gregtech.api.gui.resources.ShaderTexture;
 import gregtech.api.gui.widgets.ImageWidget;
 import gregtech.api.gui.widgets.LabelWidget;
 import gregtech.api.gui.widgets.PhantomSlotWidget;
-import gregtech.client.utils.DepthTextureUtil;
-import gregtech.client.shader.Shaders;
 import gregtech.api.terminal.app.ARApplication;
 import gregtech.api.terminal.app.AbstractApplication;
 import gregtech.api.terminal.gui.widgets.CircleButtonWidget;
 import gregtech.api.terminal.gui.widgets.RectButtonWidget;
 import gregtech.api.terminal.os.TerminalDialogWidget;
 import gregtech.api.terminal.os.TerminalTheme;
+import gregtech.client.shader.Shaders;
+import gregtech.client.utils.DepthTextureUtil;
 import gregtech.client.utils.RenderBufferHelper;
 import gregtech.common.inventory.handlers.SingleItemStackHandler;
 import gregtech.common.items.MetaItems;
 import gregtech.common.terminal.app.worldprospector.matcher.BlockStateMatcher;
 import gregtech.common.terminal.app.worldprospector.matcher.IMatcher;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.client.Minecraft;
@@ -220,11 +222,11 @@ public class WorldProspectorARApp extends ARApplication {
     @SideOnly(Side.CLIENT)
     @Override
     public void onAROpened() {
-        founds = new HashMap<>();
+        founds = new Object2ObjectOpenHashMap<>();
         radius = 0;
         maxRadius = getMaxRadius();
         lastPos = null;
-        matchers = new HashSet<>();
+        matchers = new ObjectOpenHashSet<>();
         for (Tuple<ItemStack, Integer> stack : getAllSlotStack()) {
             if (stack.getFirst().getItem() instanceof ItemBlock) {
                 Block block = ((ItemBlock) stack.getFirst().getItem()).getBlock();
@@ -233,7 +235,7 @@ public class WorldProspectorARApp extends ARApplication {
                 }
             }
         }
-        matchers.forEach(matcher->founds.put(matcher, new HashMap<>()));
+        matchers.forEach(matcher->founds.put(matcher, new Object2ObjectOpenHashMap<>()));
     }
 
     @SideOnly(Side.CLIENT)
@@ -295,7 +297,7 @@ public class WorldProspectorARApp extends ARApplication {
                             found.remove(find);
                         } else {
                             union = root.union(find);
-                            blocks = new HashSet<>();
+                            blocks = new ObjectOpenHashSet<>();
                             blocks.addAll(found.get(find));
                             blocks.addAll(found.get(root));
                             found.remove(find);
@@ -309,7 +311,7 @@ public class WorldProspectorARApp extends ARApplication {
             }
         }
         if (root == null) {
-            Set<BlockPos> blocks = new HashSet<>();
+            Set<BlockPos> blocks = new ObjectOpenHashSet<>();
             blocks.add(pos);
             found.put(new AxisAlignedBB(pos), blocks);
         }

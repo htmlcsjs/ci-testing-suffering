@@ -3,6 +3,7 @@ package gregtech.loaders.dungeon;
 import com.google.common.collect.Lists;
 import gregtech.api.util.GTLog;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
@@ -17,13 +18,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class ChestGenHooks {
 
-    private static final HashMap<ResourceLocation, ArrayList<LootEntryItem>> lootEntryItems = new HashMap<>();
-    private static final HashMap<ResourceLocation, RandomValueRange> rollVals = new HashMap<>();
+    private static final Map<ResourceLocation, ArrayList<LootEntryItem>> lootEntryItems = new Object2ObjectOpenHashMap<>();
+    private static final Map<ResourceLocation, RandomValueRange> rollVals = new Object2ObjectOpenHashMap<>();
 
 
     private static final LootCondition[] NO_CONDITIONS = new LootCondition[0];

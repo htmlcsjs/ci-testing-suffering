@@ -5,6 +5,7 @@ import gregtech.common.inventory.IItemInfo;
 import gregtech.common.inventory.IItemList;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -14,7 +15,7 @@ public class ItemSources implements IItemList {
 
     protected final World world;
     protected final List<ItemSource> handlerInfoList = new ArrayList<>();
-    protected final Map<ItemStackKey, NetworkItemInfo> itemInfoMap = new LinkedHashMap<>();
+    protected final Map<ItemStackKey, NetworkItemInfo> itemInfoMap = new Object2ObjectLinkedOpenHashMap<>();
     private final Comparator<ItemSource> comparator = Comparator.comparing(ItemSource::getPriority);
     private final Set<ItemStackKey> storedItemsView = Collections.unmodifiableSet(itemInfoMap.keySet());
 

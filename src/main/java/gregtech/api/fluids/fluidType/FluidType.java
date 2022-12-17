@@ -4,6 +4,7 @@ import crafttweaker.annotations.ZenRegister;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fluids.Fluid;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
@@ -12,7 +13,6 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 @ZenRegister
 public abstract class FluidType {
 
-    private static final Map<String, FluidType> FLUID_TYPES = new HashMap<>();
+    private static final Map<String, FluidType> FLUID_TYPES = new Object2ObjectOpenHashMap<>();
 
     private final String name;
     private final String prefix;

@@ -1,16 +1,12 @@
 package gregtech.api.gui.resources;
 
 import gregtech.api.GTValues;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.IOUtils;
 
-import java.io.Closeable;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +14,7 @@ import java.util.Map;
  */
 public class ResourceHelper {
 
-    private static final Map<String, ResourceLocation> cachedResources = new HashMap<>();
+    private static final Map<String, ResourceLocation> cachedResources = new Object2ObjectOpenHashMap<>();
     public static final String RESOURCE_PREFIX = GTValues.MODID + ":";
 
     public static void bindTexture(ResourceLocation texture) {

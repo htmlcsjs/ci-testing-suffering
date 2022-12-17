@@ -18,6 +18,7 @@ import gregtech.api.terminal.os.TerminalTheme;
 import gregtech.api.util.BlockInfo;
 import gregtech.client.utils.RenderBufferHelper;
 import gregtech.common.inventory.handlers.CycleItemStackHandler;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.state.IBlockState;
@@ -40,7 +41,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -146,7 +146,7 @@ public class MachineBuilderWidget extends WidgetGroup {
     @SideOnly(Side.CLIENT)
     public void setSceneWidget(MachineSceneWidget sceneWidget) {
         this.sceneWidget = sceneWidget;
-        this.highLightBlocks = new HashSet<>();
+        this.highLightBlocks = new ObjectOpenHashSet<>();
         sceneWidget.getWorldSceneRenderer().addRenderedBlocks(highLightBlocks, this::highLightRender);
         sceneWidget.setOnSelected(this::setFocus);
         sceneWidget.getAround().clear();

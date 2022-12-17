@@ -526,7 +526,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
         if (list.size() == 0) {
             return null;
         }
-        Set<Recipe> collidingRecipes = new HashSet<>();
+        Set<Recipe> collidingRecipes = new ObjectOpenHashSet<>();
         return recurseIngredientTreeFindRecipeCollisions(list, lookup, collidingRecipes);
     }
 

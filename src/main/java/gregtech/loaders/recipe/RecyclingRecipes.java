@@ -14,6 +14,8 @@ import gregtech.api.unification.stack.ItemMaterialInfo;
 import gregtech.api.unification.stack.MaterialStack;
 import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.api.util.GTUtility;
+import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Tuple;
 
@@ -328,7 +330,7 @@ public class RecyclingRecipes {
     private static List<MaterialStack> combineStacks(List<MaterialStack> rawList) {
 
         // Combine any stacks in the List that have the same Item.
-        Map<Material, Long> materialStacksExploded = new HashMap<>();
+        Map<Material, Long> materialStacksExploded = new Object2LongOpenHashMap<>();
         for (MaterialStack ms : rawList) {
             long amount = materialStacksExploded.getOrDefault(ms.material, 0L);
             materialStacksExploded.put(ms.material, ms.amount + amount);
@@ -380,7 +382,7 @@ public class RecyclingRecipes {
         // cut the nuggets out to favor the newer item instead of having 2 slots occupied by Steel.
         //
         // There is probably a better way to do this.
-        Map<MaterialStack, ItemStack> temp = new HashMap<>();
+        Map<MaterialStack, ItemStack> temp = new Object2ObjectOpenHashMap<>();
         for (Tuple<ItemStack, MaterialStack> t : outputs) {
             boolean isInMap = false;
             for (MaterialStack ms : temp.keySet()) {
@@ -435,7 +437,7 @@ public class RecyclingRecipes {
         final List<OrePrefix> chosenList = material.hasProperty(PropertyKey.INGOT) ? INGOT_ORDER : DUST_ORDER;
 
         // Break materialAmount into a maximal stack
-        Map<OrePrefix, MaterialStack> tempList = new HashMap<>();
+        Map<OrePrefix, MaterialStack> tempList = new Object2ObjectOpenHashMap<>();
         for (OrePrefix prefix : chosenList) {
 
             // Current prefix too large to "compact" into

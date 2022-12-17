@@ -5,6 +5,7 @@ import gregtech.api.capability.GregtechCapabilities;
 import gregtech.api.capability.IElectricItem;
 import gregtech.api.util.ItemStackKey;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +25,10 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class ArmorUtils {
@@ -177,7 +181,7 @@ public class ArmorUtils {
      * @return Formated list
      */
     public static List<ItemStack> format(List<ItemStack> input) {
-        Map<ItemStackKey, Integer> items = new HashMap<>();
+        Map<ItemStackKey, Integer> items = new Object2ObjectOpenHashMap<>();
         List<ItemStack> output = new ArrayList<>();
         for (ItemStack itemStack : input) {
             ItemStackKey current = new ItemStackKey(itemStack);

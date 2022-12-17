@@ -3,6 +3,7 @@ package gregtech.common.inventory.itemsource.sources;
 import gregtech.api.recipes.KeySharedStack;
 import gregtech.api.util.ItemStackKey;
 import gregtech.common.inventory.itemsource.ItemSource;
+import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -10,8 +11,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class InventoryItemSource extends ItemSource {
@@ -19,7 +18,7 @@ public class InventoryItemSource extends ItemSource {
     protected final World world;
     protected final int priority;
     protected IItemHandler itemHandler = EmptyHandler.INSTANCE;
-    private Map<ItemStackKey, Integer> itemStackByAmountMap = new LinkedHashMap<>();
+    private Map<ItemStackKey, Integer> itemStackByAmountMap = new Object2IntLinkedOpenHashMap<>();
 
     public InventoryItemSource(World world, int priority) {
         this.world = world;
@@ -95,7 +94,7 @@ public class InventoryItemSource extends ItemSource {
     }
 
     private void recomputeItemStackCount() {
-        HashMap<ItemStackKey, Integer> amountMap = new LinkedHashMap<>();
+        Map<ItemStackKey, Integer> amountMap = new Object2IntLinkedOpenHashMap<>();
         if (itemHandler == null) {
             this.itemStackByAmountMap = amountMap;
             return;

@@ -28,6 +28,7 @@ import gregtech.api.util.LocalizationUtils;
 import gregtech.common.ConfigHolder;
 import gregtech.common.tools.DamageValues;
 import gregtech.common.tools.ToolWrench;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -853,7 +854,7 @@ public class ToolMetaItem<T extends ToolMetaItem<?>.MetaToolValueItem> extends M
         }
 
         private Map<Enchantment, Integer> bakeEnchantmentsMap(ItemStack itemStack, Collection<Material> materials) {
-            Map<Enchantment, Integer> enchantments = new HashMap<>();
+            Map<Enchantment, Integer> enchantments = new Object2IntOpenHashMap<>();
             for (Material material : materials) {
                 ToolProperty prop = material.getProperty(PropertyKey.TOOL);
                 if (prop == null)

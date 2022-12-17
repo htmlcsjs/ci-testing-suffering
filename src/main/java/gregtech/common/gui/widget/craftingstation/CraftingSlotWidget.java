@@ -8,6 +8,7 @@ import gregtech.api.recipes.KeySharedStack;
 import gregtech.api.util.ItemStackKey;
 import gregtech.api.util.OverlayedItemHandler;
 import gregtech.common.metatileentities.storage.CraftingRecipeLogic;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import mezz.jei.api.gui.IGuiIngredient;
 import mezz.jei.api.gui.IRecipeLayout;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +20,6 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -41,7 +41,7 @@ public class CraftingSlotWidget extends SlotWidget implements IRecipeTransferHan
     public void handleClientAction(int id, PacketBuffer buffer) {
         super.handleClientAction(id, buffer);
         if (id == 1) {
-            HashMap<Integer, ItemStack> ingredients = new HashMap<>();
+            Map<Integer, ItemStack> ingredients = new Int2ObjectOpenHashMap<>();
             int ingredientAmount = buffer.readVarInt();
             try {
                 for (int i = 0; i < ingredientAmount; i++) {
@@ -182,7 +182,7 @@ public class CraftingSlotWidget extends SlotWidget implements IRecipeTransferHan
         if (!doTransfer) {
             return null;
         }
-        Map<Integer, IGuiIngredient<ItemStack>> ingredients = new HashMap<>(recipeLayout.getItemStacks().getGuiIngredients());
+        Map<Integer, IGuiIngredient<ItemStack>> ingredients = new Int2ObjectOpenHashMap<>(recipeLayout.getItemStacks().getGuiIngredients());
         ingredients.values().removeIf(it -> it.getAllIngredients().isEmpty() || !it.isInput());
         writeClientAction(1, buf -> {
             buf.writeVarInt(ingredients.size());

@@ -4,13 +4,13 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.MetaTileEntityHolder;
 import gregtech.api.util.BlockInfo;
 import gregtech.common.blocks.MetaBlocks;
+import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -34,7 +34,7 @@ public class MultiblockShapeInfo {
     public static class Builder {
 
         private List<String[]> shape = new ArrayList<>();
-        private Map<Character, BlockInfo> symbolMap = new HashMap<>();
+        private Map<Character, BlockInfo> symbolMap = new Char2ObjectOpenHashMap<>();
 
         public Builder aisle(String... data) {
             this.shape.add(data);
@@ -96,7 +96,7 @@ public class MultiblockShapeInfo {
         public Builder shallowCopy() {
             Builder builder = new Builder();
             builder.shape = new ArrayList<>(this.shape);
-            builder.symbolMap = new HashMap<>(this.symbolMap);
+            builder.symbolMap = new Char2ObjectOpenHashMap<>(this.symbolMap);
             return builder;
         }
 

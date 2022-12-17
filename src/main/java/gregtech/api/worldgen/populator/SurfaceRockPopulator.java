@@ -11,6 +11,7 @@ import gregtech.api.worldgen.config.OreConfigUtils;
 import gregtech.api.worldgen.config.OreDepositDefinition;
 import gregtech.api.worldgen.generator.GridEntryInfo;
 import gregtech.common.blocks.MetaBlocks;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +26,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.IFluidBlock;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -51,7 +51,7 @@ public class SurfaceRockPopulator implements VeinChunkPopulator {
     }
 
     private Set<Material> findUndergroundMaterials(Collection<IBlockState> generatedBlocks) {
-        HashSet<Material> result = new HashSet<>();
+        Set<Material> result = new ObjectOpenHashSet<>();
         for (IBlockState blockState : generatedBlocks) {
             Material resultMaterial;
             if (blockState.getBlock() instanceof IFluidBlock || blockState.getBlock() instanceof BlockLiquid) {

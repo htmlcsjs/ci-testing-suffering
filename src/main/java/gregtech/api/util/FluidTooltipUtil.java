@@ -4,6 +4,7 @@ import gregtech.api.fluids.fluidType.FluidTypes;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.PropertyKey;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -11,7 +12,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class FluidTooltipUtil {
     /**
      * Registry Mapping of <Fluid, Tooltip>
      */
-    private static final Map<Fluid, List<String>> tooltips = new HashMap<>();
+    private static final Map<Fluid, List<String>> tooltips = new Object2ObjectOpenHashMap<>();
 
     /**
      * Used to register a tooltip to a Fluid.

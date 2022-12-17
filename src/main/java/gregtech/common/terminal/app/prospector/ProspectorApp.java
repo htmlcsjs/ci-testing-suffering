@@ -1,12 +1,10 @@
 package gregtech.common.terminal.app.prospector;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.resources.ColorRectTexture;
 import gregtech.api.gui.widgets.ImageWidget;
-import gregtech.core.network.packets.PacketProspecting;
 import gregtech.api.terminal.TerminalRegistry;
 import gregtech.api.terminal.app.AbstractApplication;
 import gregtech.api.terminal.os.TerminalOSWidget;
@@ -16,6 +14,8 @@ import gregtech.common.terminal.app.prospector.widget.WidgetOreList;
 import gregtech.common.terminal.app.prospector.widget.WidgetProspectingMap;
 import gregtech.common.terminal.component.ClickComponent;
 import gregtech.common.terminal.component.SearchComponent;
+import gregtech.core.network.packets.PacketProspecting;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
@@ -63,7 +63,7 @@ public class ProspectorApp extends AbstractApplication implements SearchComponen
         }
         this.widgetProspectingMap = new WidgetProspectingMap(0, offset + (7 - chunkRadius) * 16, chunkRadius, this.widgetOreList, mode, 1);
         if (isClient) {
-            persist = Tables.newCustomTable(Maps.newHashMap(), Maps::newHashMap);
+            persist = Tables.newCustomTable(new Int2ObjectOpenHashMap<>(), Int2ObjectOpenHashMap::new);
             widgetProspectingMap.setOnPacketReceived(packet -> persist.put(packet.chunkX, packet.chunkZ, packet));
         }
 

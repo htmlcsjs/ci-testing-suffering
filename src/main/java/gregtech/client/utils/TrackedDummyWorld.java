@@ -2,6 +2,7 @@ package gregtech.client.utils;
 
 import gregtech.api.util.BlockInfo;
 import gregtech.api.util.world.DummyWorld;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -12,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  */
 @SideOnly(Side.CLIENT)
 public class TrackedDummyWorld extends DummyWorld {
-    public final Set<BlockPos> renderedBlocks = new HashSet<>();
+    public final Set<BlockPos> renderedBlocks = new ObjectOpenHashSet<>();
     private Predicate<BlockPos> renderFilter;
     private final World proxyWorld;
 

@@ -39,6 +39,8 @@ import gregtech.common.pipelike.itempipe.BlockItemPipe;
 import gregtech.common.pipelike.itempipe.ItemPipeType;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipe;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipeTickable;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog.EnumAxis;
@@ -55,8 +57,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -126,10 +126,10 @@ public class MetaBlocks {
     public static BlockRubberSapling RUBBER_SAPLING;
     public static BlockGregPlanks PLANKS;
 
-    public static final Map<Material, BlockCompressed> COMPRESSED = new HashMap<>();
-    public static final Map<Material, BlockFrame> FRAMES = new HashMap<>();
+    public static final Map<Material, BlockCompressed> COMPRESSED = new Object2ObjectOpenHashMap<>();
+    public static final Map<Material, BlockFrame> FRAMES = new Object2ObjectOpenHashMap<>();
     public static final Collection<BlockOre> ORES = new ReferenceArrayList<>();
-    public static final Map<Material, BlockSurfaceRock> SURFACE_ROCK = new HashMap<>();
+    public static final Map<Material, BlockSurfaceRock> SURFACE_ROCK = new Object2ObjectOpenHashMap<>();
     public static final Collection<BlockFluidBase> FLUID_BLOCKS = new ReferenceArrayList<>();
 
     public static void init() {
@@ -376,7 +376,7 @@ public class MetaBlocks {
     @SideOnly(Side.CLIENT)
     private static void registerItemModelWithOverride(Block block, Map<IProperty<?>, Comparable<?>> stateOverrides) {
         for (IBlockState state : block.getBlockState().getValidStates()) {
-            HashMap<IProperty<?>, Comparable<?>> stringProperties = new HashMap<>(state.getProperties());
+            Map<IProperty<?>, Comparable<?>> stringProperties = new Object2ObjectOpenHashMap<>(state.getProperties());
             stringProperties.putAll(stateOverrides);
             //noinspection ConstantConditions
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),
@@ -403,7 +403,7 @@ public class MetaBlocks {
             ModelLoader.setCustomStateMapper(pipe, normalStateMapper);
         }
         normalStateMapper = new SimpleStateMapper(BlockSurfaceRock.MODEL_LOCATION);
-        for (BlockSurfaceRock surfaceRock : new HashSet<>(SURFACE_ROCK.values())) {
+        for (BlockSurfaceRock surfaceRock : new ObjectOpenHashSet<>(SURFACE_ROCK.values())) {
             ModelLoader.setCustomStateMapper(surfaceRock, normalStateMapper);
         }
 

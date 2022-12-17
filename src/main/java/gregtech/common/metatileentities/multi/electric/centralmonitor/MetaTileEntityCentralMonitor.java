@@ -36,6 +36,7 @@ import gregtech.common.metatileentities.MetaTileEntities;
 import gregtech.common.pipelike.cable.net.EnergyNet;
 import gregtech.common.pipelike.cable.net.WorldENet;
 import gregtech.common.pipelike.cable.tile.TileEntityCable;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -61,7 +62,10 @@ import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import static gregtech.api.util.RelativeDirection.*;
 
@@ -137,7 +141,7 @@ public class MetaTileEntityCentralMonitor extends MultiblockWithDisplayBase impl
     private boolean checkCovers() {
         boolean dirty = false;
         updateNodes();
-        Set<BlockPosFace> checkCovers = new HashSet<>();
+        Set<BlockPosFace> checkCovers = new ObjectOpenHashSet<>();
         World world = this.getWorld();
         for (BlockPos pos : activeNodes) {
             TileEntity tileEntityCable = world.getTileEntity(pos);
@@ -205,8 +209,8 @@ public class MetaTileEntityCentralMonitor extends MultiblockWithDisplayBase impl
     }
 
     private void readCovers(PacketBuffer buf) {
-        netCovers = new HashSet<>();
-        remoteCovers = new HashSet<>();
+        netCovers = new ObjectOpenHashSet<>();
+        remoteCovers = new ObjectOpenHashSet<>();
         int size = buf.readInt();
         for (int i = 0; i < size; i++) {
             netCovers.add(new BlockPosFace(buf.readBlockPos(), EnumFacing.byIndex(buf.readByte())));
@@ -382,7 +386,7 @@ public class MetaTileEntityCentralMonitor extends MultiblockWithDisplayBase impl
     }
 
     public Set<BlockPosFace> getAllCovers() {
-        Set<BlockPosFace> allCovers = new HashSet<>();
+        Set<BlockPosFace> allCovers = new ObjectOpenHashSet<>();
         if (netCovers != null) {
             allCovers.addAll(netCovers);
         }
@@ -424,8 +428,8 @@ public class MetaTileEntityCentralMonitor extends MultiblockWithDisplayBase impl
         lastUpdate = 0;
         currentEnergyNet = new WeakReference<>(null);
         activeNodes = new ArrayList<>();
-        netCovers = new HashSet<>();
-        remoteCovers = new HashSet<>();
+        netCovers = new ObjectOpenHashSet<>();
+        remoteCovers = new ObjectOpenHashSet<>();
         inputEnergy = new EnergyContainerList(this.getAbilities(MultiblockAbility.INPUT_ENERGY));
         width = 0;
         checkCovers();

@@ -12,6 +12,8 @@ import gregtech.api.unification.stack.MaterialStack;
 import gregtech.api.util.LocalizationUtils;
 import gregtech.api.util.function.TriConsumer;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.resources.I18n;
 import org.apache.commons.lang3.Validate;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -33,7 +35,7 @@ import static gregtech.api.unification.ore.OrePrefix.Flags.SELF_REFERENCING;
 @ZenRegister
 public class OrePrefix {
 
-    private final static Map<String, OrePrefix> PREFIXES = new HashMap<>();
+    private final static Map<String, OrePrefix> PREFIXES = new Object2ObjectOpenHashMap<>();
     private final static AtomicInteger idCounter = new AtomicInteger(0);
 
     // Regular Ore Prefix. Ore -> Material is a Oneway Operation! Introduced by Eloraam
@@ -427,8 +429,8 @@ public class OrePrefix {
     Material materialType;
 
     private final List<IOreRegistrationHandler> oreProcessingHandlers = new ArrayList<>();
-    private final Set<Material> ignoredMaterials = new HashSet<>();
-    private final Set<Material> generatedMaterials = new HashSet<>();
+    private final Set<Material> ignoredMaterials = new ObjectOpenHashSet<>();
+    private final Set<Material> generatedMaterials = new ObjectOpenHashSet<>();
     private boolean isMarkerPrefix = false;
 
     public byte maxStackSize = 64;

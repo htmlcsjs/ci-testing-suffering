@@ -19,7 +19,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class ParallelLogic {
 
@@ -158,7 +161,7 @@ public abstract class ParallelLogic {
         Map<ItemStackKey, Integer> recipeOutputs = GTHashMaps.fromItemStackCollection(recipeOutputList);
         Map<ItemStackKey, Integer> recipeOutputsToAppend = GTHashMaps.fromItemStackCollection(outputsToAppend);
 
-        Map<ItemStackKey, Integer> appendedResultMap = new HashMap<>(recipeOutputs);
+        Map<ItemStackKey, Integer> appendedResultMap = new Object2IntOpenHashMap<>(recipeOutputs);
         recipeOutputsToAppend.forEach((stackKey, amt) -> appendedResultMap.merge(stackKey, amt * multiplier, Integer::sum));
 
         while (minMultiplier != maxMultiplier) {
@@ -354,8 +357,8 @@ public abstract class ParallelLogic {
         int minMultiplier = Integer.MAX_VALUE;
         //map the recipe input fluids to account for duplicated fluids,
         //so their sum is counted against the total of fluids available in the input
-        Map<FluidKey, Integer> fluidCountMap = new HashMap<>();
-        Map<FluidKey, Integer> notConsumableMap = new HashMap<>();
+        Map<FluidKey, Integer> fluidCountMap = new Object2IntOpenHashMap<>();
+        Map<FluidKey, Integer> notConsumableMap = new Object2IntOpenHashMap<>();
         for (GTRecipeInput fluidInput : recipe.getFluidInputs()) {
             int fluidAmount = fluidInput.getAmount();
             if (fluidInput.isNonConsumable()) {

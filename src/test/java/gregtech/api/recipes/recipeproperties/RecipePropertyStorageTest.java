@@ -1,9 +1,12 @@
 package gregtech.api.recipes.recipeproperties;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -71,7 +74,7 @@ public class RecipePropertyStorageTest {
         storage.store(propInt1, 1); //succeeds
         storage.store(propInt2, 2); //succeeds
 
-        HashMap<RecipeProperty<?>, Object> map = new HashMap<>();
+        Map<RecipeProperty<?>, Object> map = new Object2ObjectOpenHashMap<>();
         map.put(propInt1, 1);
         map.put(propInt2, 2);
         Set<Map.Entry<RecipeProperty<?>, Object>> expectedProperties = map.entrySet();
@@ -108,7 +111,7 @@ public class RecipePropertyStorageTest {
         storage.store(propInt1, 1); //succeeds
         storage.store(propInt2, 2); //succeeds
 
-        Set<String> expectedKeys = new HashSet<>();
+        Set<String> expectedKeys = new ObjectOpenHashSet<>();
         expectedKeys.add(propInt1.getKey());
         expectedKeys.add(propInt2.getKey());
 

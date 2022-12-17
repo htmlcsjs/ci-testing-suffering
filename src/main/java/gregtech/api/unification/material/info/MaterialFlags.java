@@ -2,16 +2,16 @@ package gregtech.api.unification.material.info;
 
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.PropertyKey;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MaterialFlags {
 
-    private final Set<MaterialFlag> flags = new HashSet<>();
+    private final Set<MaterialFlag> flags = new ObjectOpenHashSet<>();
 
     public MaterialFlags addFlags(MaterialFlag... flags) {
         this.flags.addAll(Arrays.asList(flags));

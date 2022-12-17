@@ -11,13 +11,12 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class MultiblockAbility<T> {
-    public static final Map<String, MultiblockAbility<?>> NAME_REGISTRY = new HashMap<>();
+    public static final Map<String, MultiblockAbility<?>> NAME_REGISTRY = new Object2ObjectOpenHashMap<>();
     public static final Map<MultiblockAbility<?>, List<MetaTileEntity>> REGISTRY = new Object2ObjectOpenHashMap<>();
 
     public static final MultiblockAbility<IItemHandlerModifiable> EXPORT_ITEMS = new MultiblockAbility<>("export_items");

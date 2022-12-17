@@ -6,6 +6,7 @@ import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
 import gregtech.api.pattern.MultiblockShapeInfo;
 import gregtech.api.util.BlockInfo;
 import gregtech.client.utils.TrackedDummyWorld;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -28,7 +29,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -105,7 +105,7 @@ public class MultiblockPreviewRenderer {
         BlockPos controllerPos = BlockPos.ORIGIN;
         MultiblockControllerBase mte = null;
         BlockInfo[][][] blocks = shapeInfo.getBlocks();
-        Map<BlockPos, BlockInfo> blockMap = new HashMap<>();
+        Map<BlockPos, BlockInfo> blockMap = new Object2ObjectOpenHashMap<>();
         int maxY = 0;
         for (int x = 0; x < blocks.length; x++) {
             BlockInfo[][] aisle = blocks[x];

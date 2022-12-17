@@ -2,17 +2,17 @@ package gregtech.api.unification;
 
 import com.google.common.base.CaseFormat;
 import crafttweaker.annotations.ZenRegister;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @ZenClass("mods.gregtech.material.Elements")
 @ZenRegister
 public class Elements {
 
-    private static final Map<String, Element> elements = new HashMap<>();
+    private static final Map<String, Element> elements = new Object2ObjectOpenHashMap<>();
 
     private Elements() {
     }

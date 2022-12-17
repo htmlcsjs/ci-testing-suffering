@@ -8,13 +8,13 @@ import gregtech.api.terminal.hardware.Hardware;
 import gregtech.api.util.GTLog;
 import gregtech.common.terminal.hardware.BatteryHardware;
 import gregtech.common.terminal.hardware.DeviceHardware;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -103,9 +103,9 @@ public class CTTerminalRegistry {
 
         public CTAppRegistryBuilder(String appName) {
             this.appName = appName;
-            this.battery = new HashMap<>();
-            this.hardware = new HashMap<>();
-            this.upgrade = new HashMap<>();
+            this.battery = new Int2ObjectOpenHashMap<>();
+            this.hardware = new Int2ObjectOpenHashMap<>();
+            this.upgrade = new Int2ObjectOpenHashMap<>();
         }
 
         @ZenMethod

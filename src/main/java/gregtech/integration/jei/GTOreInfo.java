@@ -14,6 +14,7 @@ import gregtech.api.worldgen.populator.IVeinPopulator;
 import gregtech.api.worldgen.populator.SurfaceBlockPopulator;
 import gregtech.api.worldgen.populator.SurfaceRockPopulator;
 import gregtech.common.blocks.BlockOre;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -36,7 +37,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 
-import static gregtech.api.GTValues.*;
+import static gregtech.api.GTValues.M;
+import static gregtech.api.GTValues.MODID_CC;
 
 public class GTOreInfo implements IRecipeWrapper {
 
@@ -304,7 +306,7 @@ public class GTOreInfo implements IRecipeWrapper {
 
         Iterator<Biome> biomeIterator = Biome.REGISTRY.iterator();
         int biomeWeight;
-        Map<Biome, Integer> modifiedBiomeMap = new HashMap<>();
+        Map<Biome, Integer> modifiedBiomeMap = new Object2IntOpenHashMap<>();
         List<String> tooltip = new ArrayList<>();
 
         //Tests biomes against all registered biomes to find which biomes have had their weights modified

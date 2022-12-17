@@ -10,6 +10,7 @@ import gregtech.api.util.RelativeDirection;
 import gregtech.common.ConfigHolder;
 import gregtech.common.items.behaviors.ModeSwitchBehavior;
 import gregtech.common.tools.ToolBase;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -26,14 +27,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class ToolDrillLarge<E extends Enum<E> & IDrillMode> extends ToolBase {
 
-    private static final Set<String> DRILL_TOOL_CLASSES = new HashSet<String>() {{
+    private static final Set<String> DRILL_TOOL_CLASSES = new ObjectOpenHashSet<String>() {{
         add("pickaxe");
         add("shovel");
         add("hammer");

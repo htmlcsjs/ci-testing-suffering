@@ -3,6 +3,7 @@ package gregtech.api.pipenet;
 import gregtech.api.pipenet.tile.IPipeTile;
 import gregtech.api.util.GTLog;
 import gregtech.common.pipelike.itempipe.net.ItemNetWalker;
+import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +24,7 @@ public abstract class PipeNetWalker {
 
     private PipeNetWalker root;
     private final World world;
-    private final Set<Long> walked = new HashSet<>();
+    private final Set<Long> walked = new LongOpenHashSet();
     private final List<EnumFacing> pipes = new ArrayList<>();
     private List<PipeNetWalker> walkers;
     private final BlockPos.MutableBlockPos currentPos;

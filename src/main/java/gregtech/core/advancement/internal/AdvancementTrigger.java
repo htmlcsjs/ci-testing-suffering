@@ -1,11 +1,11 @@
 package gregtech.core.advancement.internal;
 
-import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import gregtech.api.GTValues;
 import gregtech.api.advancement.IAdvancementCriterion;
 import gregtech.api.advancement.IAdvancementTrigger;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +17,7 @@ public class AdvancementTrigger<T extends IAdvancementCriterion> implements IAdv
 
     private final ResourceLocation id;
     private final T criterion;
-    private final Map<PlayerAdvancements, AdvancementListeners<T>> listeners = Maps.newHashMap();
+    private final Map<PlayerAdvancements, AdvancementListeners<T>> listeners = new Object2ObjectOpenHashMap<>();
 
     public AdvancementTrigger(String name, @Nonnull T criterion) {
         this.id = new ResourceLocation(GTValues.MODID, name);

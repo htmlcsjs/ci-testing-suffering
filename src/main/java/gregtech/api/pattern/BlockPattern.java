@@ -10,6 +10,8 @@ import gregtech.api.util.RelativeDirection;
 import gregtech.common.blocks.MetaBlocks;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -24,7 +26,6 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,8 +50,8 @@ public class BlockPattern {
 
     public BlockPattern(TraceabilityPredicate[][][] predicatesIn, RelativeDirection[] structureDir, int[][] aisleRepetitions) {
         this.blockMatches = predicatesIn;
-        this.globalCount = new HashMap<>();
-        this.layerCount = new HashMap<>();
+        this.globalCount = new Object2ObjectOpenHashMap<>();
+        this.layerCount = new Object2ObjectOpenHashMap<>();
         this.fingerLength = predicatesIn.length;
         this.structureDir = structureDir;
         this.aisleRepetitions = aisleRepetitions;
@@ -207,13 +208,13 @@ public class BlockPattern {
         int minZ = -centerOffset[4];
         EnumFacing facing = controllerBase.getFrontFacing().getOpposite();
         BlockPos centerPos = controllerBase.getPos();
-        Map<TraceabilityPredicate.SimplePredicate, BlockInfo[]> cacheInfos = new HashMap<>();
-        Map<TraceabilityPredicate.SimplePredicate, Integer> cacheGlobal = new HashMap<>();
-        Map<BlockPos, Object> blocks = new HashMap<>();
+        Map<TraceabilityPredicate.SimplePredicate, BlockInfo[]> cacheInfos = new Object2ObjectOpenHashMap<>();
+        Map<TraceabilityPredicate.SimplePredicate, Integer> cacheGlobal = new Object2IntOpenHashMap<>();
+        Map<BlockPos, Object> blocks = new Object2ObjectOpenHashMap<>();
         blocks.put(controllerBase.getPos(), controllerBase);
         for (int c = 0, z = minZ++, r; c < this.fingerLength; c++) {
             for (r = 0; r < aisleRepetitions[c][0]; r++) {
-                Map<TraceabilityPredicate.SimplePredicate, Integer> cacheLayer = new HashMap<>();
+                Map<TraceabilityPredicate.SimplePredicate, Integer> cacheLayer = new Object2IntOpenHashMap<>();
                 for (int b = 0, y = -centerOffset[1]; b < this.thumbLength; b++, y++) {
                     for (int a = 0, x = -centerOffset[0]; a < this.palmLength; a++, x++) {
                         TraceabilityPredicate predicate = this.blockMatches[c][b][a];
@@ -375,9 +376,9 @@ public class BlockPattern {
     }
 
     public BlockInfo[][][] getPreview(int[] repetition) {
-        Map<TraceabilityPredicate.SimplePredicate, BlockInfo[]> cacheInfos = new HashMap<>();
-        Map<TraceabilityPredicate.SimplePredicate, Integer> cacheGlobal = new HashMap<>();
-        Map<BlockPos, BlockInfo> blocks = new HashMap<>();
+        Map<TraceabilityPredicate.SimplePredicate, BlockInfo[]> cacheInfos = new Object2ObjectOpenHashMap<>();
+        Map<TraceabilityPredicate.SimplePredicate, Integer> cacheGlobal = new Object2IntOpenHashMap<>();
+        Map<BlockPos, BlockInfo> blocks = new Object2ObjectOpenHashMap<>();
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
         int minZ = Integer.MAX_VALUE;
@@ -387,7 +388,7 @@ public class BlockPattern {
         for (int l = 0, x = 0; l < this.fingerLength; l++) {
             for (int r = 0; r < repetition[l]; r++) {
                 //Checking single slice
-                Map<TraceabilityPredicate.SimplePredicate, Integer> cacheLayer = new HashMap<>();
+                Map<TraceabilityPredicate.SimplePredicate, Integer> cacheLayer = new Object2IntOpenHashMap<>();
                 for (int y = 0; y < this.thumbLength; y++) {
                     for (int z = 0; z < this.palmLength; z++) {
                         TraceabilityPredicate predicate = this.blockMatches[l][y][z];

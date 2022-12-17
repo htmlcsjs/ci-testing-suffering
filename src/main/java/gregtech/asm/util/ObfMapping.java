@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Objects;
 import com.google.common.io.LineProcessor;
 import com.google.common.io.Resources;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
@@ -18,7 +19,6 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -236,8 +236,8 @@ public class ObfMapping extends Remapper {
 
     public static class ObfRemapper extends Remapper {
 
-        private final HashMap<String, String> fields = new HashMap<>();
-        private final HashMap<String, String> funcs = new HashMap<>();
+        private final Map<String, String> fields = new Object2ObjectOpenHashMap<>();
+        private final Map<String, String> funcs = new Object2ObjectOpenHashMap<>();
 
         @SuppressWarnings("unchecked")
         public ObfRemapper() {
@@ -302,8 +302,8 @@ public class ObfMapping extends Remapper {
 
     public static class MCPRemapper extends Remapper implements LineProcessor<Void> {
 
-        private final HashMap<String, String> fields = new HashMap<>();
-        private final HashMap<String, String> funcs = new HashMap<>();
+        private final Map<String, String> fields = new Object2ObjectOpenHashMap<>();
+        private final Map<String, String> funcs = new Object2ObjectOpenHashMap<>();
 
         public MCPRemapper() {
             File[] mappings = getConfFiles();

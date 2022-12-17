@@ -20,6 +20,8 @@ import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.handler.MultiblockPreviewRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.MetaBlocks;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -52,7 +54,7 @@ public abstract class MultiblockControllerBase extends MetaTileEntity implements
 
     public BlockPattern structurePattern;
 
-    private final Map<MultiblockAbility<Object>, List<Object>> multiblockAbilities = new HashMap<>();
+    private final Map<MultiblockAbility<Object>, List<Object>> multiblockAbilities = new Object2ObjectOpenHashMap<>();
     private final List<IMultiblockPart> multiblockParts = new ArrayList<>();
     private boolean structureFormed;
 
@@ -217,7 +219,7 @@ public abstract class MultiblockControllerBase extends MetaTileEntity implements
         if (structurePattern == null) return;
         PatternMatchContext context = structurePattern.checkPatternFastAt(getWorld(), getPos(), getFrontFacing().getOpposite());
         if (context != null && !structureFormed) {
-            Set<IMultiblockPart> rawPartsSet = context.getOrCreate("MultiblockParts", HashSet::new);
+            Set<IMultiblockPart> rawPartsSet = context.getOrCreate("MultiblockParts", ObjectOpenHashSet::new);
             ArrayList<IMultiblockPart> parts = new ArrayList<>(rawPartsSet);
             parts.sort(Comparator.comparing(it -> multiblockPartSorter().apply(((MetaTileEntity) it).getPos())));
             for (IMultiblockPart part : parts) {
@@ -227,7 +229,7 @@ public abstract class MultiblockControllerBase extends MetaTileEntity implements
                     }
                 }
             }
-            Map<MultiblockAbility<Object>, List<Object>> abilities = new HashMap<>();
+            Map<MultiblockAbility<Object>, List<Object>> abilities = new Object2ObjectOpenHashMap<>();
             for (IMultiblockPart multiblockPart : parts) {
                 if (multiblockPart instanceof IMultiblockAbilityPart) {
                     IMultiblockAbilityPart<Object> abilityPart = (IMultiblockAbilityPart<Object>) multiblockPart;

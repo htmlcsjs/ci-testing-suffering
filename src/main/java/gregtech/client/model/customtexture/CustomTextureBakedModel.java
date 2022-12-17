@@ -6,6 +6,7 @@ import com.google.common.collect.*;
 import gregtech.api.util.GTLog;
 import gregtech.asm.hooks.BlockHooks;
 import gregtech.asm.hooks.CTMHooks;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -33,7 +34,7 @@ public class CustomTextureBakedModel implements IBakedModel {
     public static final Cache<CustomTextureBakedModel.State, CustomTextureBakedModel> MODEL_CACHE = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES).maximumSize(5000).build();
 
     protected final ListMultimap<BlockRenderLayer, BakedQuad> genQuads = MultimapBuilder.enumKeys(BlockRenderLayer.class).arrayListValues().build();
-    protected final Table<BlockRenderLayer, EnumFacing, List<BakedQuad>> faceQuads = Tables.newCustomTable(Maps.newEnumMap(BlockRenderLayer.class), () -> Maps.newEnumMap(EnumFacing.class));
+    protected final Table<BlockRenderLayer, EnumFacing, List<BakedQuad>> faceQuads = Tables.newCustomTable(new EnumMap<>(BlockRenderLayer.class), () -> new EnumMap<>(EnumFacing.class));
 
     private final EnumMap<EnumFacing, ImmutableList<BakedQuad>> noLayerCache = new EnumMap<>(EnumFacing.class);
     private ImmutableList<BakedQuad> noSideNoLayerCache;
@@ -92,7 +93,7 @@ public class CustomTextureBakedModel implements IBakedModel {
                 }
 
                 // Linked to maintain the order of quads
-                Map<BakedQuad, CustomTexture> textureMap = new LinkedHashMap<>();
+                Map<BakedQuad, CustomTexture> textureMap = new Object2ObjectLinkedOpenHashMap<>();
                 // Gather all quads and map them to their textures
                 // All quads should have an associated ICTMTexture, so ignore any that do not
                 for (BakedQuad q : parentQuads) {

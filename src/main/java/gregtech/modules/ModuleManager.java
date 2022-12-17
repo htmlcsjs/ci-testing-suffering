@@ -3,6 +3,10 @@ package gregtech.modules;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import gregtech.api.modules.*;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenHashSet;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
@@ -20,9 +24,9 @@ public class ModuleManager implements IModuleManager {
     //private static final String MODULE_CFG_CATEGORY_NAME = "modules";
     //private static File configFolder;
 
-    private final Map<String, IModuleContainer> containers = new HashMap<>();
-    private final Map<ResourceLocation, IGregTechModule> sortedModules = new LinkedHashMap<>();
-    private final Set<IGregTechModule> loadedModules = new LinkedHashSet<>();
+    private final Map<String, IModuleContainer> containers = new Object2ObjectOpenHashMap<>();
+    private final Map<ResourceLocation, IGregTechModule> sortedModules = new Object2ObjectLinkedOpenHashMap<>();
+    private final Set<IGregTechModule> loadedModules = new ObjectLinkedOpenHashSet<>();
 
     private IModuleContainer currentContainer;
 
@@ -176,8 +180,8 @@ public class ModuleManager implements IModuleManager {
     private void configureModules(Map<String, List<IGregTechModule>> modules) {
         //Locale locale = Locale.getDefault();
         //Locale.setDefault(Locale.ENGLISH);
-        Set<ResourceLocation> toLoad = new HashSet<>();
-        Set<IGregTechModule> modulesToLoad = new HashSet<>();
+        Set<ResourceLocation> toLoad = new ObjectOpenHashSet<>();
+        Set<IGregTechModule> modulesToLoad = new ObjectOpenHashSet<>();
         //Configuration config = getConfiguration();
 
         for (IModuleContainer container : containers.values()) {
@@ -285,7 +289,7 @@ public class ModuleManager implements IModuleManager {
 
     private Map<String, List<IGregTechModule>> getModules(ASMDataTable table) {
         List<IGregTechModule> instances = getInstances(table);
-        Map<String, List<IGregTechModule>> modules = new LinkedHashMap<>();
+        Map<String, List<IGregTechModule>> modules = new Object2ObjectLinkedOpenHashMap<>();
         for (IGregTechModule module : instances) {
             GregTechModule info = module.getClass().getAnnotation(GregTechModule.class);
             modules.computeIfAbsent(info.containerID(), k -> new ArrayList<>()).add(module);

@@ -19,6 +19,9 @@ import gregtech.api.util.GTUtility;
 import gregtech.api.util.Position;
 import gregtech.integration.jei.GTJeiPlugin;
 import gregtech.integration.jei.recipe.GTRecipeWrapper;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
@@ -175,8 +178,8 @@ public class RGNode extends WidgetGroup implements IDraggable {
         inputsGroup.setActive(false);
         toolGroup.setVisible(false);
         toolGroup.setActive(false);
-        parentNodes = new HashMap<>();
-        children = new LinkedHashMap<>(); // important
+        parentNodes = new Object2IntOpenHashMap<>();
+        children = new Object2ObjectLinkedOpenHashMap<>(); // important
     }
 
     public int getHeadDemand() {
@@ -222,7 +225,7 @@ public class RGNode extends WidgetGroup implements IDraggable {
     }
 
     public Set<RGNode> findAllChildren() {
-        Set<RGNode> result = new HashSet<>();
+        Set<RGNode> result = new ObjectOpenHashSet<>();
         for (Set<RGNode> nodes : children.values()) {
             for (RGNode node : nodes) {
                 result.add(node);
@@ -561,7 +564,7 @@ public class RGNode extends WidgetGroup implements IDraggable {
                 }
             }.setBackgroundTexture(TerminalTheme.COLOR_B_2);
             inputsGroup.addWidget(widget);
-            children.put(widget, new HashSet<>());
+            children.put(widget, new ObjectOpenHashSet<>());
         }
         for (FluidStack fluidInput : fluidInputs) {
             FluidTank tank = new FluidTank(fluidInput, Integer.MAX_VALUE);
@@ -572,7 +575,7 @@ public class RGNode extends WidgetGroup implements IDraggable {
                 }
             }.setAlwaysShowFull(true).setBackgroundTexture(TerminalTheme.COLOR_B_2).setClient();
             inputsGroup.addWidget(widget);
-            children.put(widget, new HashSet<>());
+            children.put(widget, new ObjectOpenHashSet<>());
         }
         inputsGroup.setSelfPosition(new Position(25, -(inputsGroup.widgets.size() * 20) / 2 + 8));
     }

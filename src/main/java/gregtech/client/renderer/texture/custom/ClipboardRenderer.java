@@ -8,6 +8,7 @@ import codechicken.lib.vec.Matrix4;
 import codechicken.lib.vec.Rotation;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.metatileentities.MetaTileEntityClipboard;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -22,8 +23,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClipboardRenderer implements IIconRegister {
 
@@ -35,14 +36,14 @@ public class ClipboardRenderer implements IIconRegister {
     private static final List<EnumFacing> rotations = Arrays.asList(EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.EAST);
 
     @SideOnly(Side.CLIENT)
-    private static HashMap<Cuboid6, TextureAtlasSprite> boxTextureMap;
+    private static Map<Cuboid6, TextureAtlasSprite> boxTextureMap;
 
     @SideOnly(Side.CLIENT)
     private TextureAtlasSprite[] textures;
 
     public ClipboardRenderer() {
         if (FMLCommonHandler.instance().getSide().isClient()) {
-            boxTextureMap = new HashMap<>();
+            boxTextureMap = new Object2ObjectOpenHashMap<>();
             textures = new TextureAtlasSprite[3];
         }
         Textures.iconRegisters.add(this);

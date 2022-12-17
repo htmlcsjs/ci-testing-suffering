@@ -6,11 +6,13 @@ import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.Widget;
 import gregtech.api.gui.widgets.SlotWidget;
 import gregtech.api.gui.widgets.WidgetUIAccess;
-import gregtech.core.network.packets.PacketUIClientAction;
-import gregtech.core.network.packets.PacketUIWidgetUpdate;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.PerTickIntCounter;
+import gregtech.core.network.packets.PacketUIClientAction;
+import gregtech.core.network.packets.PacketUIWidgetUpdate;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class ModularUIContainer extends Container implements WidgetUIAccess {
 
-    protected final HashMap<Slot, INativeWidget> slotMap = new HashMap<>();
+    protected final Map<Slot, INativeWidget> slotMap = new Object2ObjectOpenHashMap<>();
     private final ModularUI modularUI;
 
     public boolean accumulateWidgetUpdateData = false;
@@ -57,7 +59,7 @@ public class ModularUIContainer extends Container implements WidgetUIAccess {
                 .flatMap(widget -> widget.getNativeWidgets().stream())
                 .collect(Collectors.toList());
 
-        Set<INativeWidget> removedWidgets = new HashSet<>(slotMap.values());
+        Set<INativeWidget> removedWidgets = new ObjectOpenHashSet<>(slotMap.values());
         removedWidgets.removeAll(nativeWidgets);
         if (!removedWidgets.isEmpty()) {
             for (INativeWidget removedWidget : removedWidgets) {
@@ -71,7 +73,7 @@ public class ModularUIContainer extends Container implements WidgetUIAccess {
             }
         }
 
-        Set<INativeWidget> addedWidgets = new HashSet<>(nativeWidgets);
+        Set<INativeWidget> addedWidgets = new ObjectOpenHashSet<>(nativeWidgets);
         addedWidgets.removeAll(slotMap.values());
         if (!addedWidgets.isEmpty()) {
             int[] emptySlotIndexes = inventorySlots.stream()

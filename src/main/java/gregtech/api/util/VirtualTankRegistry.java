@@ -1,6 +1,7 @@
 package gregtech.api.util;
 
 import gregtech.api.GTValues;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
@@ -13,7 +14,6 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,7 +22,7 @@ public class VirtualTankRegistry extends WorldSavedData {
     private static final int DEFAULT_CAPACITY = 64000; //64B
     private static final String DATA_ID = GTValues.MODID + ".vtank_data";
 
-    protected static Map<UUID, Map<String, IFluidTank>> tankMap = new HashMap<>();
+    protected static Map<UUID, Map<String, IFluidTank>> tankMap = new Object2ObjectOpenHashMap<>();
 
     public VirtualTankRegistry() {
         super(DATA_ID);
@@ -86,7 +86,7 @@ public class VirtualTankRegistry extends WorldSavedData {
         if(tankMap.containsKey(uuid) && tankMap.get(uuid).containsKey(key)) {
             GTLog.logger.warn("Overwriting virtual tank " + key + "/" + (uuid == null ? "null" :uuid.toString()) + ", this might cause fluid loss!");
         } else if (!tankMap.containsKey(uuid)) {
-            tankMap.put(uuid, new HashMap<>());
+            tankMap.put(uuid, new Object2ObjectOpenHashMap<>());
         }
         tankMap.get(uuid).put(key, new VirtualTank(capacity));
     }

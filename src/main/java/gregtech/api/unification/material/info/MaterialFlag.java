@@ -3,16 +3,16 @@ package gregtech.api.unification.material.info;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MaterialFlag {
 
-    private static final Set<MaterialFlag> FLAG_REGISTRY = new HashSet<>();
+    private static final Set<MaterialFlag> FLAG_REGISTRY = new ObjectOpenHashSet<>();
 
     private final String name;
 
@@ -41,7 +41,7 @@ public class MaterialFlag {
             }
         });
 
-        Set<MaterialFlag> thisAndDependencies = new HashSet<>(requiredFlags);
+        Set<MaterialFlag> thisAndDependencies = new ObjectOpenHashSet<>(requiredFlags);
         thisAndDependencies.addAll(requiredFlags.stream()
                 .map(f -> f.verifyFlag(material))
                 .flatMap(Collection::stream)
@@ -63,8 +63,8 @@ public class MaterialFlag {
 
         final String name;
 
-        final Set<MaterialFlag> requiredFlags = new HashSet<>();
-        final Set<PropertyKey<?>> requiredProperties = new HashSet<>();
+        final Set<MaterialFlag> requiredFlags = new ObjectOpenHashSet<>();
+        final Set<PropertyKey<?>> requiredProperties = new ObjectOpenHashSet<>();
 
         public Builder(String name) {
             this.name = name;

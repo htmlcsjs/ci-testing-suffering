@@ -17,7 +17,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -30,7 +29,7 @@ public class OreDictionaryItemFilter extends ItemFilter {
 
     private final List<OreDictExprFilter.MatchRule> matchRules = new ArrayList<>();
     private static final Hash.Strategy<ItemStack> strategy = ItemStackHashStrategy.builder().compareItem(true).compareDamage(true).build();
-    private final Map<ItemStack, Boolean> recentlyChecked = new Object2BooleanOpenCustomHashMap<>(strategy);
+    private final Object2BooleanOpenCustomHashMap<ItemStack> recentlyChecked = new Object2BooleanOpenCustomHashMap<>(strategy);
 
     protected void setOreDictFilterExpression(String oreDictFilterExpression) {
         this.oreDictFilterExpression = oreDictFilterExpression;
@@ -157,9 +156,8 @@ public class OreDictionaryItemFilter extends ItemFilter {
     }
 
     public boolean matchesItemStack(ItemStack itemStack) {
-        Boolean b = recentlyChecked.get(itemStack);
-        if (b != null)
-            return b;
+        if (recentlyChecked.containsKey(itemStack))
+            return recentlyChecked.getBoolean(itemStack);
         if (OreDictExprFilter.matchesOreDict(matchRules, itemStack)) {
             recentlyChecked.put(itemStack, true);
             return true;

@@ -8,6 +8,7 @@ import gregtech.api.gui.widgets.WidgetGroup;
 import gregtech.api.terminal.os.TerminalTheme;
 import gregtech.api.util.Position;
 import gregtech.api.util.Size;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
@@ -16,7 +17,10 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -300,7 +304,7 @@ public class TextEditorWidget extends WidgetGroup {
         }
 
         public static String cleanUpFormatting(final String content) {
-            Set<Integer> removed = new HashSet<>();
+            Set<Integer> removed = new IntOpenHashSet();
 		    Matcher marcher = R_CODE_PATTERN.matcher(content);
 		    while (marcher.find()) {
                 int index = marcher.start();

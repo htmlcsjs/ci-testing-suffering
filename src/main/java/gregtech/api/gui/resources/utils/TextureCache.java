@@ -1,11 +1,11 @@
 package gregtech.api.gui.resources.utils;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -14,7 +14,7 @@ public class TextureCache {
     private File cacheDirectory = new File(Minecraft.getMinecraft().gameDir, "opframe_cache");
     private File index = new File(cacheDirectory, "index");
 
-    private Map<String, CacheEntry> entries = new HashMap<>();
+    private Map<String, CacheEntry> entries = new Object2ObjectOpenHashMap<>();
 
     public TextureCache() {
         if (!cacheDirectory.exists()) {
@@ -49,7 +49,7 @@ public class TextureCache {
     private void loadIndex() {
         if (index.exists()) {
             Map<String, CacheEntry> previousEntries = entries;
-            entries = new HashMap<>();
+            entries = new Object2ObjectOpenHashMap<>();
             DataInputStream in = null;
             try {
                 in = new DataInputStream(new GZIPInputStream(new FileInputStream(index)));

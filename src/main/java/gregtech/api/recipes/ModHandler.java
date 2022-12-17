@@ -23,6 +23,8 @@ import gregtech.api.util.world.DummyWorld;
 import gregtech.common.ConfigHolder;
 import gregtech.common.crafting.GTShapedOreRecipe;
 import gregtech.common.crafting.GTShapelessOreRecipe;
+import it.unimi.dsi.fastutil.chars.Char2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.inventory.InventoryCrafting;
@@ -422,8 +424,8 @@ public final class ModHandler {
     }
 
     public static ItemMaterialInfo getRecyclingIngredients(int outputCount, Object... recipe) {
-        Map<Character, Integer> inputCountMap = new HashMap<>();
-        Map<Material, Long> materialStacksExploded = new HashMap<>();
+        Map<Character, Integer> inputCountMap = new Char2IntOpenHashMap();
+        Map<Material, Long> materialStacksExploded = new Object2LongOpenHashMap<>();
 
         int itr = 0;
         while (recipe[itr] instanceof String) {

@@ -5,6 +5,8 @@ import gregtech.api.gui.resources.picturetexture.OrdinaryTexture;
 import gregtech.api.gui.resources.picturetexture.PictureTexture;
 import gregtech.api.gui.resources.picturetexture.VideoTexture;
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.compress.utils.IOUtils;
@@ -20,8 +22,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @SideOnly(Side.CLIENT)
@@ -35,8 +36,8 @@ public class DownloadThread extends Thread {
 
     public static int activeDownloads = 0;
 
-    public static HashMap<String, PictureTexture> loadedImages = new HashMap<>();
-    public static Set<String> loadingImages = new HashSet<>();
+    public static Map<String, PictureTexture> loadedImages = new Object2ObjectOpenHashMap<>();
+    public static Set<String> loadingImages = new ObjectOpenHashSet<>();
 
     private final String url;
 

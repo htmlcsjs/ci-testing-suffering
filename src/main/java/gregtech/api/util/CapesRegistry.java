@@ -3,8 +3,9 @@ package gregtech.api.util;
 import crafttweaker.annotations.ZenRegister;
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
-import gregtech.core.network.packets.PacketNotifyCapeChange;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.core.network.packets.PacketNotifyCapeChange;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,9 +34,9 @@ import java.util.*;
 @ZenRegister
 public class CapesRegistry {
 
-    private static final Map<UUID, List<ResourceLocation>> UNLOCKED_CAPES = new HashMap<>();
-    private static final Map<UUID, ResourceLocation> WORN_CAPES = new HashMap<>();
-    private static final Map<Advancement, ResourceLocation> CAPE_ADVANCEMENTS = new HashMap<>();
+    private static final Map<UUID, List<ResourceLocation>> UNLOCKED_CAPES = new Object2ObjectOpenHashMap<>();
+    private static final Map<UUID, ResourceLocation> WORN_CAPES = new Object2ObjectOpenHashMap<>();
+    private static final Map<Advancement, ResourceLocation> CAPE_ADVANCEMENTS = new Object2ObjectOpenHashMap<>();
 
     public static void registerDevCapes() {
         unlockCape(UUID.fromString("2fa297a6-7803-4629-8360-7059155cf43e"), Textures.GREGTECH_CAPE_TEXTURE); // KilaBash

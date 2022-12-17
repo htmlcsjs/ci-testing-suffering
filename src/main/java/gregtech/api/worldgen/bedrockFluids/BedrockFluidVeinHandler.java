@@ -2,10 +2,15 @@ package gregtech.api.worldgen.bedrockFluids;
 
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
-import gregtech.core.network.packets.PacketFluidVeinList;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.XSTR;
 import gregtech.api.worldgen.config.BedrockFluidDepositDefinition;
+import gregtech.core.network.packets.PacketFluidVeinList;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -17,16 +22,14 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class BedrockFluidVeinHandler {
 
-    public final static LinkedHashMap<BedrockFluidDepositDefinition, Integer> veinList = new LinkedHashMap<>();
-    private final static Map<Integer, HashMap<Integer, Integer>> totalWeightMap = new HashMap<>();
-    public static HashMap<ChunkPosDimension, FluidVeinWorldEntry> veinCache = new HashMap<>();
+    public final static Map<BedrockFluidDepositDefinition, Integer> veinList = new Object2IntLinkedOpenHashMap<>();
+    private final static Map<Integer, Int2IntOpenHashMap> totalWeightMap = new Int2ObjectOpenHashMap<>();
+    public static Map<ChunkPosDimension, FluidVeinWorldEntry> veinCache = new Object2ObjectOpenHashMap<>();
 
     public static final int VEIN_CHUNK_SIZE = 8; // veins are 8x8 chunk squares
 
@@ -97,7 +100,7 @@ public class BedrockFluidVeinHandler {
     public static int getTotalWeight(@Nonnull WorldProvider provider, Biome biome) {
         int dim = provider.getDimension();
         if (!totalWeightMap.containsKey(dim)) {
-            totalWeightMap.put(dim, new HashMap<>());
+            totalWeightMap.put(dim, new Int2IntOpenHashMap());
         }
 
         Map<Integer, Integer> dimMap = totalWeightMap.get(dim);
@@ -135,7 +138,7 @@ public class BedrockFluidVeinHandler {
     public static void recalculateChances(boolean mutePackets) {
         totalWeightMap.clear();
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER && !mutePackets) {
-            HashMap<FluidVeinWorldEntry, Integer> packetMap = new HashMap<>();
+            Map<FluidVeinWorldEntry, Integer> packetMap = new Object2IntOpenHashMap<>();
             for (Map.Entry<ChunkPosDimension, FluidVeinWorldEntry> entry : BedrockFluidVeinHandler.veinCache.entrySet()) {
                 if (entry.getKey() != null && entry.getValue() != null)
                     packetMap.put(entry.getValue(), entry.getValue().getDefinition().getWeight());

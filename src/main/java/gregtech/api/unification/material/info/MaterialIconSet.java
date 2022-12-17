@@ -2,13 +2,13 @@ package gregtech.api.unification.material.info;
 
 import com.google.common.base.Preconditions;
 import crafttweaker.annotations.ZenRegister;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import java.util.Map;
 @ZenRegister
 public class MaterialIconSet {
 
-    public static final Map<String, MaterialIconSet> ICON_SETS = new HashMap<>();
+    public static final Map<String, MaterialIconSet> ICON_SETS = new Object2ObjectOpenHashMap<>();
     public static final MaterialIconSet DULL = new MaterialIconSet("dull", null, true);
     public static final MaterialIconSet METALLIC = new MaterialIconSet("metallic");
     public static final MaterialIconSet MAGNETIC = new MaterialIconSet("magnetic", METALLIC);

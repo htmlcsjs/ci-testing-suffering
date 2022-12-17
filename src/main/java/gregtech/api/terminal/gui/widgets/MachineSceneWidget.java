@@ -14,6 +14,7 @@ import gregtech.api.util.BlockPosFace;
 import gregtech.client.renderer.scene.FBOWorldSceneRenderer;
 import gregtech.client.renderer.scene.WorldSceneRenderer;
 import gregtech.client.utils.RenderUtil;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -32,7 +33,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
 import javax.vecmath.Vector3f;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -192,14 +192,14 @@ public class MachineSceneWidget extends WidgetGroup {
         }
         worldSceneRenderer = new FBOWorldSceneRenderer(world, 1080, 1080);
         worldSceneRenderer.setAfterWorldRender(this::renderBlockOverLay);
-        cores = new HashSet<>();
-        around = new HashSet<>();
+        cores = new ObjectOpenHashSet<>();
+        around = new ObjectOpenHashSet<>();
         cores.add(pos);
         if (mte instanceof MultiblockControllerBase && ((MultiblockControllerBase) mte).isStructureFormed()) {
             PatternMatchContext context = ((MultiblockControllerBase) mte).structurePattern.checkPatternFastAt(world, pos, mte.getFrontFacing().getOpposite());
             if (context != null) {
                 List<BlockPos> validPos = ((MultiblockControllerBase) mte).structurePattern.cache.keySet().stream().map(BlockPos::fromLong).collect(Collectors.toList());
-                Set<IMultiblockPart> parts = context.getOrCreate("MultiblockParts", HashSet::new);
+                Set<IMultiblockPart> parts = context.getOrCreate("MultiblockParts", ObjectOpenHashSet::new);
                 for (IMultiblockPart part : parts) {
                     if (part instanceof MetaTileEntity) {
                         cores.add(((MetaTileEntity) part).getPos());

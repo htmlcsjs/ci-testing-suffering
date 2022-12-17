@@ -7,12 +7,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import gregtech.api.unification.ore.StoneType;
 import gregtech.api.util.WorldBlockPredicate;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -90,7 +90,7 @@ public class PredicateConfigUtils {
 
     private static Predicate<IBlockState> parseBlockStatePropertyPredicate(JsonObject object) {
         Block block = OreConfigUtils.getBlockByName(object.get("block").getAsString());
-        Map<IProperty<?>, List<Object>> allowedValues = new HashMap<>();
+        Map<IProperty<?>, List<Object>> allowedValues = new Object2ObjectOpenHashMap<>();
 
         for (IProperty<?> property : block.getBlockState().getProperties()) {
             JsonElement valueElement = object.get(property.getName());

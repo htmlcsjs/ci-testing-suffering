@@ -4,9 +4,9 @@ import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.material.MarkerMaterials.Tier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.stack.UnificationEntry;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.init.Items;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static gregtech.api.GTValues.*;
@@ -118,7 +118,7 @@ public class ComponentRecipes {
 
 
         //Conveyors Start-----------------------------------------------------------------------------------------------
-        final Map<String, Material> rubberMaterials = new HashMap<String, Material>() {{
+        final Map<String, Material> rubberMaterials = new Object2ObjectOpenHashMap<String, Material>() {{
             put("rubber", Rubber);
             put("silicone_rubber", SiliconeRubber);
             put("styrene_butadiene_rubber", StyreneButadieneRubber);

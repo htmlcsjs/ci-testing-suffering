@@ -4,6 +4,7 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -14,15 +15,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.Stack;
 
 public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCompound> {
 
     protected final WorldPipeNet<NodeDataType, PipeNet<NodeDataType>> worldData;
-    private final Map<BlockPos, Node<NodeDataType>> nodeByBlockPos = new HashMap<>();
+    private final Map<BlockPos, Node<NodeDataType>> nodeByBlockPos = new Object2ObjectOpenHashMap<>();
     private final Map<BlockPos, Node<NodeDataType>> unmodifiableNodeByBlockPos = Collections.unmodifiableMap(nodeByBlockPos);
-    private final Map<ChunkPos, Integer> ownedChunks = new HashMap<>();
+    private final Map<ChunkPos, Integer> ownedChunks = new Object2ObjectOpenHashMap<>();
     private long lastUpdate;
     boolean isValid = false;
 
@@ -146,7 +150,7 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
                 if (canNodesConnect(selfNode, facing, getNodeAt(offsetPos), this)) {
                     //now block again to call findAllConnectedBlocks
                     setBlocked(selfNode, facing, true);
-                    HashMap<BlockPos, Node<NodeDataType>> thisENet = findAllConnectedBlocks(nodePos);
+                    Map<BlockPos, Node<NodeDataType>> thisENet = findAllConnectedBlocks(nodePos);
                     if (!getAllNodes().equals(thisENet)) {
                         //node visibility has changed, split network into 2
                         //node that code below is similar to removeNodeInternal, but only for 2 networks, and without node removal
@@ -178,7 +182,7 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
         if (!containsNode(nodePos)) {
             return;
         }
-        HashMap<BlockPos, Node<NodeDataType>> selfConnectedBlocks = null;
+        Map<BlockPos, Node<NodeDataType>> selfConnectedBlocks = null;
         Node<NodeDataType> selfNode = getNodeAt(nodePos);
         int oldMark = selfNode.mark;
         selfNode.mark = newMark;
@@ -210,7 +214,7 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
                     continue; //if this node is still connected to this network, just continue
                 }
                 //otherwise, it is not connected
-                HashMap<BlockPos, Node<NodeDataType>> offsetConnectedBlocks = findAllConnectedBlocks(offsetPos);
+                Map<BlockPos, Node<NodeDataType>> offsetConnectedBlocks = findAllConnectedBlocks(offsetPos);
                 //if in the result of remarking offset node has separated from main network,
                 //and it is also separated from current cable too, form new network for it
                 if (!offsetConnectedBlocks.equals(selfConnectedBlocks)) {
@@ -244,7 +248,7 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
     }
 
     protected final void uniteNetworks(PipeNet<NodeDataType> unitedPipeNet) {
-        Map<BlockPos, Node<NodeDataType>> allNodes = new HashMap<>(unitedPipeNet.getAllNodes());
+        Map<BlockPos, Node<NodeDataType>> allNodes = new Object2ObjectOpenHashMap<>(unitedPipeNet.getAllNodes());
         worldData.removePipeNet(unitedPipeNet);
         allNodes.keySet().forEach(unitedPipeNet::removeNodeWithoutRebuilding);
         transferNodeData(allNodes, unitedPipeNet);
@@ -270,8 +274,8 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
     }
 
     //we need to search only this network
-    protected HashMap<BlockPos, Node<NodeDataType>> findAllConnectedBlocks(BlockPos startPos) {
-        HashMap<BlockPos, Node<NodeDataType>> observedSet = new HashMap<>();
+    protected Map<BlockPos, Node<NodeDataType>> findAllConnectedBlocks(BlockPos startPos) {
+        Map<BlockPos, Node<NodeDataType>> observedSet = new Object2ObjectOpenHashMap<>();
         observedSet.put(startPos, getNodeAt(startPos));
         Node<NodeDataType> firstNode = getNodeAt(startPos);
         MutableBlockPos currentPos = new MutableBlockPos(startPos);
@@ -316,7 +320,7 @@ public abstract class PipeNet<NodeDataType> implements INBTSerializable<NBTTagCo
                     //if there isn't any neighbour node, or it wasn't connected with us, just skip it
                     continue;
                 }
-                HashMap<BlockPos, Node<NodeDataType>> thisENet = findAllConnectedBlocks(offsetPos);
+                Map<BlockPos, Node<NodeDataType>> thisENet = findAllConnectedBlocks(offsetPos);
                 if (getAllNodes().equals(thisENet)) {
                     //if cable on some direction contains all nodes of this network
                     //the network didn't change so keep it as is

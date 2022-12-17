@@ -14,6 +14,7 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.integration.jei.GTJeiPlugin;
 import gregtech.integration.jei.utils.render.FluidStackTextRenderer;
 import gregtech.integration.jei.utils.render.ItemStackTextRenderer;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
@@ -30,8 +31,8 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecipeMapCategory implements IRecipeCategory<GTRecipeWrapper> {
 
@@ -44,7 +45,7 @@ public class RecipeMapCategory implements IRecipeCategory<GTRecipeWrapper> {
     private IDrawable icon;
 
     private static final int FONT_HEIGHT = 9;
-    private static final HashMap<RecipeMap<?>, RecipeMapCategory> categoryMap = new HashMap<>();
+    private static final Map<RecipeMap<?>, RecipeMapCategory> categoryMap = new Object2ObjectOpenHashMap<>();
 
     public RecipeMapCategory(RecipeMap<?> recipeMap, IGuiHelper guiHelper) {
         this.recipeMap = recipeMap;
@@ -191,7 +192,7 @@ public class RecipeMapCategory implements IRecipeCategory<GTRecipeWrapper> {
         }
     }
 
-    public static HashMap<RecipeMap<?>, RecipeMapCategory> getCategoryMap() {
+    public static Map<RecipeMap<?>, RecipeMapCategory> getCategoryMap() {
         return categoryMap;
     }
 

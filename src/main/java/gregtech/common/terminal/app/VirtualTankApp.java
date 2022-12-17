@@ -14,6 +14,7 @@ import gregtech.api.terminal.os.menu.IMenuComponent;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.VirtualTankRegistry;
 import gregtech.common.terminal.component.SearchComponent;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fluids.FluidStack;
@@ -57,9 +58,9 @@ public class VirtualTankApp extends AbstractApplication implements SearchCompone
                 .setYScrollBarWidth(3)
                 .setYBarStyle(null, TerminalTheme.COLOR_F_1);
         if (isClient) {
-            cacheClient = new HashMap<>();
+            cacheClient = new Object2ObjectOpenHashMap<>();
         } else {
-            cacheServer = new HashMap<>();
+            cacheServer = new Object2ObjectOpenHashMap<>();
         }
         this.addWidget(widgetGroup);
         if (!isRemote()) {
@@ -91,7 +92,7 @@ public class VirtualTankApp extends AbstractApplication implements SearchCompone
 
     private void refresh() {
         Map<UUID, Map<String, IFluidTank>> tankMap = VirtualTankRegistry.getTankMap();
-        Map<Pair<UUID, String>, FluidStack> access = new HashMap<>();
+        Map<Pair<UUID, String>, FluidStack> access = new Object2ObjectOpenHashMap<>();
         for (Pair<UUID, String> virtualTankEntry : findVirtualTanks()) {
             UUID uuid = virtualTankEntry.getKey();
             String key = virtualTankEntry.getValue();
@@ -231,7 +232,7 @@ public class VirtualTankApp extends AbstractApplication implements SearchCompone
 
     @Override
     public void selectResult(Pair<UUID, String> result) {
-        Map<Pair<UUID, String>, IFluidTank> map = new HashMap<>();
+        Map<Pair<UUID, String>, IFluidTank> map = new Object2ObjectOpenHashMap<>();
         map.put(result, cacheClient.get(result));
         reloadWidgets(map);
     }

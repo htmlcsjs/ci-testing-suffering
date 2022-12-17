@@ -21,6 +21,8 @@ import gregtech.client.renderer.handler.MultiblockPreviewRenderer;
 import gregtech.client.shader.Shaders;
 import gregtech.client.utils.RenderUtil;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.GlStateManager;
@@ -36,7 +38,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MultiBlockPreviewARApp extends ARApplication {
     @SideOnly(Side.CLIENT)
@@ -173,8 +178,8 @@ public class MultiBlockPreviewARApp extends ARApplication {
 
     @Override
     public void onAROpened() {
-        controllerList = new HashMap<>();
-        found = new HashSet<>();
+        controllerList = new Object2ObjectOpenHashMap<>();
+        found = new ObjectOpenHashSet<>();
     }
 
     @SideOnly(Side.CLIENT)

@@ -2,9 +2,10 @@ package gregtech.client.model.customtexture;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import gregtech.api.util.GTLog;
 import gregtech.asm.hooks.CTMHooks;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BlockPart;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -35,13 +36,13 @@ public class CustomTextureModel implements IModel {
     private Boolean uvLock;
 
     private final Collection<ResourceLocation> textureDependencies;
-    private final Map<String, CustomTexture> textures = new HashMap<>();
+    private final Map<String, CustomTexture> textures = new Object2ObjectOpenHashMap<>();
     private transient byte layers;
 
     public CustomTextureModel(ModelBlock modelInfo, IModel vanillaModel) {
         this.modelInfo = modelInfo;
         this.vanillaModel = vanillaModel;
-        this.textureDependencies = new HashSet<>();
+        this.textureDependencies = new ObjectOpenHashSet<>();
         this.textureDependencies.addAll(vanillaModel.getTextures());
         this.textureDependencies.removeIf(rl -> rl.getPath().startsWith("#"));
     }
@@ -195,11 +196,11 @@ public class CustomTextureModel implements IModel {
         // Deep copy logic taken from ModelLoader$VanillaModelWrapper
         List<BlockPart> parts = new ArrayList<>();
         for (BlockPart part : modelInfo.getElements()) {
-            parts.add(new BlockPart(part.positionFrom, part.positionTo, Maps.newHashMap(part.mapFaces), part.partRotation, part.shade));
+            parts.add(new BlockPart(part.positionFrom, part.positionTo, new EnumMap<>(part.mapFaces), part.partRotation, part.shade));
         }
 
         ModelBlock newModel = new ModelBlock(modelInfo.getParentLocation(), parts,
-                Maps.newHashMap(modelInfo.textures), ao == null ? modelInfo.isAmbientOcclusion() : ao, gui3d == null ? modelInfo.isGui3d() : gui3d,
+                new Object2ObjectOpenHashMap<>(modelInfo.textures), ao == null ? modelInfo.isAmbientOcclusion() : ao, gui3d == null ? modelInfo.isGui3d() : gui3d,
                 modelInfo.getAllTransforms(), Lists.newArrayList(modelInfo.getOverrides()));
 
         newModel.name = modelInfo.name;

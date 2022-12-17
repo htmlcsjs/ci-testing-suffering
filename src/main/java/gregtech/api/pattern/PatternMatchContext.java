@@ -1,6 +1,7 @@
 package gregtech.api.pattern;
 
-import java.util.HashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -10,7 +11,7 @@ import java.util.function.Supplier;
  */
 public class PatternMatchContext {
 
-    private final Map<String, Object> data = new HashMap<>();
+    private final Map<String, Object> data = new Object2ObjectOpenHashMap<>();
 
     public void reset() {
         this.data.clear();

@@ -2,6 +2,7 @@ package gregtech.client.model.customtexture;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonParseException;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -25,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -69,7 +69,7 @@ public enum CustomTextureModelHandler implements IResourceManagerReloadListener 
         return new CustomTextureBakedModel(ctm, object);
     }
 
-    private static final Map<ResourceLocation, MetadataSectionCTM> METADATA_CACHE = new HashMap<>();
+    private static final Map<ResourceLocation, MetadataSectionCTM> METADATA_CACHE = new Object2ObjectOpenHashMap<>();
 
     public static ResourceLocation spriteToAbsolute(ResourceLocation sprite) {
         if (!sprite.getPath().startsWith("textures/")) {

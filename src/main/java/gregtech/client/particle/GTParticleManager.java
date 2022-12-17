@@ -1,6 +1,7 @@
 package gregtech.client.particle;
 
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -18,7 +19,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * //TODO - One day switch to using GPU instances for rendering when particle is under pressure.
@@ -34,8 +38,8 @@ public class GTParticleManager {
     private static World currentWorld = null;
     private static final Minecraft mc = Minecraft.getMinecraft();
 
-    private final Map<IGTParticleHandler, ArrayDeque<GTParticle>> renderQueueBack = new HashMap<>();
-    private final Map<IGTParticleHandler, ArrayDeque<GTParticle>> renderQueueFront = new HashMap<>();
+    private final Map<IGTParticleHandler, ArrayDeque<GTParticle>> renderQueueBack = new Object2ObjectOpenHashMap<>();
+    private final Map<IGTParticleHandler, ArrayDeque<GTParticle>> renderQueueFront = new Object2ObjectOpenHashMap<>();
     private final Queue<Tuple<IGTParticleHandler, GTParticle>> newParticleQueue = new ArrayDeque<>();
 
     public void addEffect(GTParticle... particles) {

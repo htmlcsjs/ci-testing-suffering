@@ -17,6 +17,7 @@ import gregtech.api.util.Position;
 import gregtech.api.util.Size;
 import gregtech.common.terminal.app.guide.widget.GuidePageWidget;
 import gregtech.common.terminal.component.SearchComponent;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -53,7 +54,7 @@ public abstract class GuideApp<T> extends AbstractApplication implements
     public AbstractApplication initApp() {
         if (isClient) {
             ROOT = new TreeNode<>(0, "root");
-            jsonObjectMap = new HashMap<>();
+            jsonObjectMap = new Object2ObjectOpenHashMap<>();
             loadJsonFiles();
             buildTree();
         }
@@ -120,7 +121,7 @@ public abstract class GuideApp<T> extends AbstractApplication implements
             GTLog.logger.error("Failed to load file on path {}", "terminal", e);
         }
         ROOT = new TreeNode<>(0, "root");
-        jsonObjectMap = new HashMap<>();
+        jsonObjectMap = new Object2ObjectOpenHashMap<>();
         for (JsonObject json : jsons) {
             T t = ofJson(json);
             if(t != null) {

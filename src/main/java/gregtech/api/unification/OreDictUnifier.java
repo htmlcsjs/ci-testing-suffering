@@ -1,6 +1,5 @@
 package gregtech.api.unification;
 
-import com.google.common.base.CaseFormat;
 import com.google.common.base.Joiner;
 import gregtech.api.GregTechAPI;
 import gregtech.api.unification.material.MarkerMaterial;
@@ -12,6 +11,7 @@ import gregtech.api.util.CustomModPriorityComparator;
 import gregtech.api.util.GTUtility;
 import gregtech.common.ConfigHolder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -105,7 +105,7 @@ public class OreDictUnifier {
         ItemAndMetadata simpleItemStack = new ItemAndMetadata(event.getOre());
         String oreName = event.getName();
         //cache this registration by name
-        stackOreDictName.computeIfAbsent(simpleItemStack, k -> new HashSet<>()).add(oreName);
+        stackOreDictName.computeIfAbsent(simpleItemStack, k -> new ObjectOpenHashSet<>()).add(oreName);
         List<ItemStack> itemStackListForOreDictName = oreDictNameStacks.computeIfAbsent(oreName, k -> new ArrayList<>());
         addAndSort(itemStackListForOreDictName, event.getOre().copy(), getItemStackComparator());
 

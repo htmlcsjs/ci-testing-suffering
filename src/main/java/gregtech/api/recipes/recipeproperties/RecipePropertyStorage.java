@@ -2,8 +2,8 @@ package gregtech.api.recipes.recipeproperties;
 
 import gregtech.api.util.GTLog;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -106,7 +106,7 @@ public class RecipePropertyStorage implements IRecipePropertyStorage {
 
     @Override
     public Set<String> getRecipePropertyKeys() {
-        HashSet<String> keys = new HashSet<>();
+        Set<String> keys = new ObjectOpenHashSet<>();
 
         recipeProperties.keySet().forEach(recipeProperty -> keys.add(recipeProperty.getKey()));
 

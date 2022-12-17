@@ -30,6 +30,7 @@ import gregtech.common.metatileentities.multi.MetaTileEntityCokeOven;
 import gregtech.common.metatileentities.multi.MetaTileEntityPrimitiveBlastFurnace;
 import gregtech.common.metatileentities.multi.MetaTileEntityPrimitiveWaterPump;
 import gregtech.common.metatileentities.multi.electric.centralmonitor.MetaTileEntityCentralMonitor;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
@@ -79,7 +80,7 @@ public class MetaTileEntityCleanroom extends MultiblockWithDisplayBase implement
     private IEnergyContainer energyContainer;
 
     private final CleanroomLogic cleanroomLogic;
-    private final HashSet<ICleanroomReceiver> cleanroomReceivers = new HashSet<>();
+    private final Set<ICleanroomReceiver> cleanroomReceivers = new ObjectOpenHashSet<>();
 
     public MetaTileEntityCleanroom(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);

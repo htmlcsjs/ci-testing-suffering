@@ -2,7 +2,6 @@ package gregtech.common.terminal.app.prospector.widget;
 
 import gregtech.api.gui.IRenderContext;
 import gregtech.api.gui.Widget;
-import gregtech.core.network.packets.PacketProspecting;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.ore.StoneType;
@@ -12,6 +11,8 @@ import gregtech.api.util.Position;
 import gregtech.api.util.Size;
 import gregtech.api.worldgen.bedrockFluids.BedrockFluidVeinHandler;
 import gregtech.common.terminal.app.prospector.ProspectingTexture;
+import gregtech.core.network.packets.PacketProspecting;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,8 +30,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
@@ -229,7 +230,7 @@ public class WidgetProspectingMap extends Widget {
                     new Color(0x4B6C6C6C, true).getRGB());
             if (this.mode == 0) { // draw ore
                 tooltips.add(I18n.format("terminal.prospector.ore"));
-                HashMap<String, Integer> oreInfo = new HashMap<>();
+                Map<String, Integer> oreInfo = new Object2IntOpenHashMap<>();
                 for (int i = 0; i < 16; i++) {
                     for (int j = 0; j < 16; j++) {
                         if (texture.map[cX * 16 + i][cZ * 16 + j] != null) {

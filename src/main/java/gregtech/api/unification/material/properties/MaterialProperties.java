@@ -1,12 +1,14 @@
 package gregtech.api.unification.material.properties;
 
 import gregtech.api.unification.material.Material;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import java.util.*;
 
 public class MaterialProperties {
 
-    private static final Set<PropertyKey<?>> baseTypes = new HashSet<>(Arrays.asList(
+    private static final Set<PropertyKey<?>> baseTypes = new ObjectOpenHashSet<>(Arrays.asList(
             PropertyKey.PLASMA, PropertyKey.FLUID, PropertyKey.DUST,
             PropertyKey.INGOT, PropertyKey.GEM
     ));
@@ -20,7 +22,7 @@ public class MaterialProperties {
     private Material material;
 
     public MaterialProperties() {
-        propertyMap = new HashMap<>();
+        propertyMap = new Object2ObjectOpenHashMap<>();
     }
 
     public boolean isEmpty() {

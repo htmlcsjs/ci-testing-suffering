@@ -5,6 +5,7 @@ import codechicken.lib.render.shader.ShaderProgram;
 import gregtech.api.GTValues;
 import gregtech.api.util.GTLog;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -15,7 +16,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -59,7 +59,7 @@ public class Shaders {
 
     static {
         mc = Minecraft.getMinecraft();
-        FULL_IMAGE_PROGRAMS = new HashMap<>();
+        FULL_IMAGE_PROGRAMS = new Object2ObjectOpenHashMap<>();
         if (allowedShader()) {
             initShaders();
         }

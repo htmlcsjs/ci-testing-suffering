@@ -8,8 +8,8 @@ import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.IRecipePropertyStorage;
 import gregtech.common.ConfigHolder;
-import net.minecraft.util.Tuple;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -253,15 +253,15 @@ public class MultiblockRecipeLogic extends AbstractRecipeLogic {
     @Override
     protected int[] runOverclockingLogic(@Nonnull IRecipePropertyStorage propertyStorage, int recipeEUt, long maxVoltage, int recipeDuration, int amountOC) {
         // apply maintenance penalties
-        Tuple<Integer, Double> maintenanceValues = getMaintenanceValues();
+        Pair<Integer, Double> maintenanceValues = getMaintenanceValues();
 
         int[] overclock = null;
-        if (maintenanceValues.getSecond() != 1.0)
+        if (maintenanceValues.getValue() != 1.0)
 
             overclock = standardOverclockingLogic(
                     Math.abs(recipeEUt),
                     maxVoltage,
-                    (int) Math.round(recipeDuration * maintenanceValues.getSecond()),
+                    (int) Math.round(recipeDuration * maintenanceValues.getValue()),
                     amountOC,
                     getOverclockingDurationDivisor(),
                     getOverclockingVoltageMultiplier()
@@ -277,8 +277,8 @@ public class MultiblockRecipeLogic extends AbstractRecipeLogic {
                     getOverclockingVoltageMultiplier()
             );
 
-        if (maintenanceValues.getFirst() > 0)
-            overclock[1] = (int) (overclock[1] * (1 + 0.1 * maintenanceValues.getFirst()));
+        if (maintenanceValues.getKey() > 0)
+            overclock[1] = (int) (overclock[1] * (1 + 0.1 * maintenanceValues.getKey()));
 
         return overclock;
     }
@@ -288,7 +288,7 @@ public class MultiblockRecipeLogic extends AbstractRecipeLogic {
         return getMaxVoltage();
     }
 
-    protected Tuple<Integer, Double> getMaintenanceValues() {
+    protected Pair<Integer, Double> getMaintenanceValues() {
         MultiblockWithDisplayBase displayBase = this.metaTileEntity instanceof MultiblockWithDisplayBase ? (MultiblockWithDisplayBase) metaTileEntity : null;
         int numMaintenanceProblems = displayBase == null || !displayBase.hasMaintenanceMechanics() || !ConfigHolder.machines.enableMaintenance ? 0 : displayBase.getNumMaintenanceProblems();
         double durationMultiplier = 1.0D;
@@ -296,7 +296,7 @@ public class MultiblockRecipeLogic extends AbstractRecipeLogic {
             IMaintenanceHatch hatch = displayBase.getAbilities(MultiblockAbility.MAINTENANCE_HATCH).get(0);
             durationMultiplier = hatch.getDurationMultiplier();
         }
-        return new Tuple<>(numMaintenanceProblems, durationMultiplier);
+        return Pair.of(numMaintenanceProblems, durationMultiplier);
     }
 
     @Override

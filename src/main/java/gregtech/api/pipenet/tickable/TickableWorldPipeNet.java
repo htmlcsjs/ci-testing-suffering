@@ -2,20 +2,25 @@ package gregtech.api.pipenet.tickable;
 
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public abstract class TickableWorldPipeNet<NodeDataType, T extends PipeNet<NodeDataType> & ITickable> extends WorldPipeNet<NodeDataType, T> {
 
-    private final Map<T, List<ChunkPos>> loadedChunksByPipeNet = new HashMap<>();
-    private final Set<T> tickingPipeNets = new HashSet<>();
-    private final Set<T> removeLater = new HashSet<>();
+    private final Map<T, List<ChunkPos>> loadedChunksByPipeNet = new Object2ObjectOpenHashMap<>();
+    private final Set<T> tickingPipeNets = new ObjectOpenHashSet<>();
+    private final Set<T> removeLater = new ObjectOpenHashSet<>();
 
     public TickableWorldPipeNet(String name) {
         super(name);

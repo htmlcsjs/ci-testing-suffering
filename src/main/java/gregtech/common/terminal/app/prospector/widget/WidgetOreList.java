@@ -5,13 +5,13 @@ import com.google.common.collect.HashBiMap;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.IRenderContext;
 import gregtech.api.gui.Widget;
-import gregtech.api.gui.impl.ModularUIGui;
 import gregtech.api.gui.widgets.*;
 import gregtech.api.terminal.gui.widgets.DraggableScrollableWidgetGroup;
 import gregtech.api.terminal.os.TerminalTheme;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.MaterialStack;
 import gregtech.api.util.Position;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -21,7 +21,10 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class WidgetOreList extends DraggableScrollableWidgetGroup {
@@ -34,7 +37,7 @@ public class WidgetOreList extends DraggableScrollableWidgetGroup {
     public WidgetOreList(int xPosition, int yPosition, int width, int slotSize) {
         super(xPosition, yPosition, width, slotSize);
         widgetMap = HashBiMap.create();
-        ores = new HashMap<>();
+        ores = new Object2ObjectOpenHashMap<>();
         this.setYScrollBarWidth(5);
         this.setYBarStyle(null, TerminalTheme.COLOR_F_1);
         clear();

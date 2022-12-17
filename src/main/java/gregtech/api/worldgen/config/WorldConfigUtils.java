@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import gregtech.api.util.GTUtility;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldProvider;
@@ -14,7 +15,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -80,7 +81,7 @@ public class WorldConfigUtils {
 
         switch (influenceType) {
             case "biome_map": {
-                HashMap<Biome, Integer> backedMap = new HashMap<>();
+                Map<Biome, Integer> backedMap = new Object2IntOpenHashMap<>();
                 for (Entry<String, JsonElement> elementEntry : object.entrySet()) {
                     if (elementEntry.getKey().equals("type")) continue; //skip type
                     ResourceLocation biomeName = new ResourceLocation(elementEntry.getKey());
@@ -92,7 +93,7 @@ public class WorldConfigUtils {
                 return biome -> backedMap.getOrDefault(biome, 0);
             }
             case "biome_dictionary": {
-                HashMap<Type, Integer> backedMap = new HashMap<>();
+                Map<Type, Integer> backedMap = new Object2IntOpenHashMap<>();
                 for (Entry<String, JsonElement> elementEntry : object.entrySet()) {
                     if (elementEntry.getKey().equals("type")) continue; //skip type
                     String tagName = elementEntry.getKey().toUpperCase();

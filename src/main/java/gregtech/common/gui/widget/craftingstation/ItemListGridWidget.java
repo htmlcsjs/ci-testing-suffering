@@ -11,6 +11,7 @@ import gregtech.common.inventory.IItemInfo;
 import gregtech.common.inventory.IItemList;
 import gregtech.common.inventory.IItemList.InsertMode;
 import gregtech.common.inventory.SimpleItemInfo;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
@@ -25,7 +26,7 @@ public class ItemListGridWidget extends ScrollableListWidget {
     private final int slotAmountX;
     private final int slotAmountY;
     private int slotRowsAmount = 0;
-    private final Map<ItemStackKey, SimpleItemInfo> cachedItemList = new HashMap<>();
+    private final Map<ItemStackKey, SimpleItemInfo> cachedItemList = new Object2ObjectOpenHashMap<>();
     private final List<SimpleItemInfo> itemsChanged = new ArrayList<>();
     private final List<ItemStackKey> itemsRemoved = new ArrayList<>();
 

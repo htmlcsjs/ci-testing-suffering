@@ -9,6 +9,8 @@ import gregtech.api.unification.material.info.MaterialIconType;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.util.GTUtility;
 import gregtech.api.util.SmallDigits;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
@@ -16,14 +18,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MetaOreDictItem extends StandardMetaItem {
 
-    public final Map<String, String> OREDICT_TO_FORMULA = new HashMap<>();
-    private final Map<Short, OreDictValueItem> ITEMS = new HashMap<>();
+    public final Map<String, String> OREDICT_TO_FORMULA = new Object2ObjectOpenHashMap<>();
+    private final Map<Short, OreDictValueItem> ITEMS = new Short2ObjectOpenHashMap<>();
     private static final List<MaterialIconType> DISALLOWED_TYPES = ImmutableList.of(
             MaterialIconType.block, MaterialIconType.ore, MaterialIconType.oreSmall,
             MaterialIconType.frameGt);

@@ -25,6 +25,7 @@ import gregtech.client.renderer.texture.cube.SimpleSidedCubeRenderer;
 import gregtech.common.covers.filter.ItemFilterContainer;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipe;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,7 +44,6 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -387,7 +387,7 @@ public class CoverConveyor extends CoverBehavior implements CoverWithUI, ITickab
             }
             ItemStackKey itemStackKey = new ItemStackKey(itemStack);
             if (!result.containsKey(transferSlotIndex)) {
-                GroupItemInfo itemInfo = new GroupItemInfo(transferSlotIndex, new HashSet<>(), 0);
+                GroupItemInfo itemInfo = new GroupItemInfo(transferSlotIndex, new ObjectOpenHashSet<>(), 0);
                 itemInfo.itemStackTypes.add(itemStackKey);
                 itemInfo.totalCount += itemStack.getCount();
                 result.put(transferSlotIndex, itemInfo);

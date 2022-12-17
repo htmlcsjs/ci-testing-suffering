@@ -14,6 +14,7 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.unification.material.Materials;
 import gregtech.client.renderer.texture.Textures;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -27,7 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class SteamLavaBoiler extends SteamBoiler implements IFuelable {
@@ -52,7 +52,7 @@ public class SteamLavaBoiler extends SteamBoiler implements IFuelable {
     }
 
     private Map<Fluid, Integer> getBoilerFuels() {
-        Map<Fluid, Integer> fuels = new HashMap<>();
+        Map<Fluid, Integer> fuels = new Object2IntOpenHashMap<>();
         fuels.put(Materials.Lava.getFluid(), 100);
         fuels.put(Materials.Creosote.getFluid(), 250);
 

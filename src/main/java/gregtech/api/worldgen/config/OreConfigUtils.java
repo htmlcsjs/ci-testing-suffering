@@ -10,6 +10,7 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.StoneType;
 import gregtech.common.blocks.BlockOre;
 import gregtech.common.blocks.MetaBlocks;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -18,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,7 +58,7 @@ public class OreConfigUtils {
         List<BlockOre> oreBlocks = MetaBlocks.ORES.stream()
                 .filter(ore -> ore.material == material)
                 .collect(Collectors.toList());
-        HashMap<StoneType, IBlockState> stoneTypeMap = new HashMap<>();
+        Map<StoneType, IBlockState> stoneTypeMap = new Object2ObjectOpenHashMap<>();
         for (BlockOre blockOre : oreBlocks) {
             for (StoneType stoneType : blockOre.STONE_TYPE.getAllowedValues()) {
                 IBlockState blockState = blockOre.getOreBlock(stoneType);

@@ -1,11 +1,11 @@
 package gregtech.common.crafting;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTStringUtils;
+import it.unimi.dsi.fastutil.chars.Char2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -26,7 +26,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class GTShapedOreRecipe extends ShapedOreRecipe {
@@ -78,7 +78,7 @@ public class GTShapedOreRecipe extends ShapedOreRecipe {
             throw new RuntimeException(err);
         }
 
-        HashMap<Character, Ingredient> itemMap = Maps.newHashMap();
+        Map<Character, Ingredient> itemMap = new Char2ObjectOpenHashMap<>();
         itemMap.put(' ', Ingredient.EMPTY);
 
         for (; idx < recipe.length; idx += 2) {

@@ -11,13 +11,16 @@ import gregtech.api.util.Position;
 import gregtech.api.util.Size;
 import gregtech.api.util.interpolate.Eases;
 import gregtech.api.util.interpolate.Interpolator;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class GuidePageWidget extends DraggableScrollableWidgetGroup {
-    public static final Map<String, IGuideWidget> REGISTER_WIDGETS = new HashMap<>();
+    public static final Map<String, IGuideWidget> REGISTER_WIDGETS = new Object2ObjectOpenHashMap<>();
     static { //register guide widgets
         REGISTER_WIDGETS.put(TextBoxWidget.NAME, new TextBoxWidget());
         REGISTER_WIDGETS.put(ImageWidget.NAME, new ImageWidget());

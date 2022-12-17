@@ -11,6 +11,7 @@ import gregtech.client.renderer.pipe.ItemPipeRenderer;
 import gregtech.common.pipelike.itempipe.net.WorldItemPipeNet;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipe;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipeTickable;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
@@ -30,12 +31,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 public class BlockItemPipe extends BlockMaterialPipe<ItemPipeType, ItemPipeProperties, WorldItemPipeNet> {
 
-    private final Map<Material, ItemPipeProperties> enabledMaterials = new HashMap<>();
+    private final Map<Material, ItemPipeProperties> enabledMaterials = new Object2ObjectOpenHashMap<>();
 
     public BlockItemPipe(ItemPipeType itemPipeType) {
         super(itemPipeType);

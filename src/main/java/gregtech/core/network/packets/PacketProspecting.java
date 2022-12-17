@@ -1,12 +1,13 @@
 package gregtech.core.network.packets;
 
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.NoArgsConstructor;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class PacketProspecting {
     public int posX;
     public int posZ;
     public int mode;
-    public HashMap<Byte, String>[][] map;
+    public Map<Byte, String>[][] map;
     public Set<String> ores;
 
     public PacketProspecting(int chunkX, int chunkZ, int posX, int posZ, int mode) {
@@ -26,11 +27,11 @@ public class PacketProspecting {
         this.posZ = posZ;
         this.mode = mode;
         if (mode == 1)
-            map = new HashMap[1][1];
+            map = new Byte2ObjectOpenHashMap[1][1];
         else
-            map = new HashMap[16][16];
+            map = new Byte2ObjectOpenHashMap[16][16];
 
-        ores = new HashSet<>();
+        ores = new ObjectOpenHashSet<>();
     }
 
     public static PacketProspecting readPacketData(PacketBuffer buffer) {
@@ -45,7 +46,7 @@ public class PacketProspecting {
             for (int j = 0; j < aSize; j++) {
                 byte kSize = buffer.readByte();
                 if (kSize == 0) continue;
-                packet.map[i][j] = new HashMap<>();
+                packet.map[i][j] = new Byte2ObjectOpenHashMap<>();
                 for (int k = 0; k < kSize; k++) {
                     byte y = buffer.readByte();
                     String name = buffer.readString(1000);
@@ -110,12 +111,12 @@ public class PacketProspecting {
     public void addBlock(int x, int y, int z, String orePrefix) {
         if (this.mode == 0) {
             if (map[x][z] == null)
-                map[x][z] = new HashMap<>();
+                map[x][z] = new Byte2ObjectOpenHashMap<>();
             map[x][z].put((byte) y, orePrefix);
             ores.add(orePrefix);
         } else if (this.mode == 1) {
             if (map[x][z] == null)
-                map[x][z] = new HashMap<>();
+                map[x][z] = new Byte2ObjectOpenHashMap<>();
             map[x][z].put((byte) y, orePrefix);
             if (y == 1) {
                 ores.add(orePrefix);

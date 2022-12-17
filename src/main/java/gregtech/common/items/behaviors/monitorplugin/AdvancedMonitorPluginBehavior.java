@@ -16,13 +16,15 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.metatileentity.multiblock.MultiblockControllerBase;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.client.renderer.scene.FBOWorldSceneRenderer;
-import gregtech.client.utils.TrackedDummyWorld;
 import gregtech.client.renderer.scene.WorldSceneRenderer;
 import gregtech.client.utils.RenderUtil;
+import gregtech.client.utils.TrackedDummyWorld;
 import gregtech.common.gui.widget.WidgetScrollBar;
 import gregtech.common.gui.widget.monitor.WidgetPluginConfig;
 import gregtech.common.metatileentities.multi.electric.centralmonitor.MetaTileEntityCentralMonitor;
 import gregtech.common.metatileentities.multi.electric.centralmonitor.MetaTileEntityMonitorScreen;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -217,7 +219,7 @@ public class AdvancedMonitorPluginBehavior extends ProxyHolderPluginBehavior {
                     createWorldScene();
                 }
                 if (this.connect && worldSceneRenderer != null && this.screen.getController() instanceof MetaTileEntityCentralMonitor) {
-                    if (connections == null) connections = new HashMap<>();
+                    if (connections == null) connections = new Object2ObjectOpenHashMap<>();
                     connections.clear();
                     for (MetaTileEntityMonitorScreen[] monitorScreens : ((MetaTileEntityCentralMonitor) this.screen.getController()).screens) {
                         for (MetaTileEntityMonitorScreen screen : monitorScreens) {
@@ -332,7 +334,7 @@ public class AdvancedMonitorPluginBehavior extends ProxyHolderPluginBehavior {
     private void loadValidPos(PacketBuffer buf) {
         int size = buf.readVarInt();
         if (size > 0) {
-            validPos = new HashSet<>();
+            validPos = new ObjectOpenHashSet<>();
             for (int i = 0; i < size; i++) {
                 validPos.add(buf.readBlockPos());
             }

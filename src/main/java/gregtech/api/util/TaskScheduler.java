@@ -2,6 +2,7 @@ package gregtech.api.util;
 
 import gregtech.api.GTValues;
 import gregtech.api.util.function.Task;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -9,7 +10,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @EventBusSubscriber(modid = GTValues.MODID)
 public class TaskScheduler {
@@ -19,7 +22,7 @@ public class TaskScheduler {
         return tasksPerWorld.get(world);
     }
 
-    private static final Map<World, TaskScheduler> tasksPerWorld = new HashMap<>();
+    private static final Map<World, TaskScheduler> tasksPerWorld = new Object2ObjectOpenHashMap<>();
 
     private final List<Task> tasks = new ArrayList<>();
     private final List<Task> scheduledTasks = new ArrayList<>();

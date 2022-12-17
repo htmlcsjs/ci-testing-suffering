@@ -5,17 +5,17 @@ import codechicken.lib.render.shader.ShaderProgram;
 import gregtech.api.gui.Widget;
 import gregtech.client.shader.Shaders;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class ShaderTexture implements IGuiTexture{
     @SideOnly(Side.CLIENT)
-    private static final Map<String, ShaderTexture> PROGRAMS = new HashMap<>();
+    private static final Map<String, ShaderTexture> PROGRAMS = new Object2ObjectOpenHashMap<>();
     @SideOnly(Side.CLIENT)
     private ShaderProgram program;
     @SideOnly(Side.CLIENT)

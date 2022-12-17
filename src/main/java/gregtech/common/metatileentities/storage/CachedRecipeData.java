@@ -7,20 +7,20 @@ import gregtech.common.inventory.IItemList;
 import gregtech.common.inventory.itemsource.ItemSources;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class CachedRecipeData {
     private final ItemSources itemSources;
     private IRecipe recipe;
-    private final Map<ItemStackKey, Integer> requiredItems = new HashMap<>();
+    private final Map<ItemStackKey, Integer> requiredItems = new Object2IntOpenHashMap<>();
     private final Map<Integer, Map<ItemStackKey, Boolean>> replaceAttemptMap = new Int2ObjectArrayMap<>();
     private final InventoryCrafting inventory;
 
@@ -45,7 +45,7 @@ public class CachedRecipeData {
 
     protected boolean consumeRecipeItems() {
         boolean gathered = true;
-        HashMap<ItemStackKey, Integer> gatheredItems = new HashMap<>();
+        Map<ItemStackKey, Integer> gatheredItems = new Object2IntOpenHashMap<>();
         if (requiredItems.isEmpty()) {
             return false;
         }

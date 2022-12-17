@@ -3,6 +3,7 @@ package gregtech.common.worldgen;
 import com.google.common.collect.Lists;
 import com.google.gson.*;
 import gregtech.api.util.GTLog;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.MathHelper;
@@ -20,7 +21,7 @@ import java.util.function.BiFunction;
 
 public class LootTableHelper {
 
-    private static final Map<String, LootTableEntrySerializer<?>> serializerMap = new HashMap<>();
+    private static final Map<String, LootTableEntrySerializer<?>> serializerMap = new Object2ObjectOpenHashMap<>();
 
     public interface LootTableEntrySerializer<T extends LootEntry> {
         T deserialize(JsonObject object, JsonDeserializationContext deserializationContext, int weightIn, int qualityIn, LootCondition[] conditionsIn);

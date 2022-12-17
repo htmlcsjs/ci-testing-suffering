@@ -1,6 +1,5 @@
 package gregtech.client.model.modelfactories;
 
-import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
 import gregtech.api.unification.material.info.MaterialIconSet;
@@ -32,10 +31,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SideOnly(Side.CLIENT)
 public class OreBakedModel implements IBakedModel {
@@ -49,8 +45,8 @@ public class OreBakedModel implements IBakedModel {
 
    public OreBakedModel() {
        this.stoneTypeModels = new Object2ObjectOpenHashMap<>();
-       this.cacheBottom = Tables.newCustomTable(Maps.newHashMap(), () -> Maps.newEnumMap(EnumFacing.class));
-       this.cacheTop = Tables.newCustomTable(Maps.newHashMap(), () -> Maps.newEnumMap(EnumFacing.class));
+       this.cacheBottom = Tables.newCustomTable(new Object2ObjectOpenHashMap<>(), () -> new EnumMap<>(EnumFacing.class));
+       this.cacheTop = Tables.newCustomTable(new Object2ObjectOpenHashMap<>(), () -> new EnumMap<>(EnumFacing.class));
        this.particle = ThreadLocal.withInitial(() -> Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite());
    }
 

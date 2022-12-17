@@ -1,9 +1,10 @@
 package gregtech.common.terminal.app.prospector;
 
-import gregtech.core.network.packets.PacketProspecting;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.MaterialStack;
 import gregtech.client.utils.RenderUtil;
+import gregtech.core.network.packets.PacketProspecting;
+import it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.AbstractTexture;
@@ -17,7 +18,7 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.util.HashMap;
+import java.util.Map;
 
 
 public class ProspectingTexture extends AbstractTexture {
@@ -26,8 +27,8 @@ public class ProspectingTexture extends AbstractTexture {
     private boolean darkMode;
     private int imageWidth = -1;
     private int imageHeight = -1;
-    public final HashMap<Byte, String>[][] map;
-    public static HashMap<Byte, String> emptyTag = new HashMap<>();
+    public final Map<Byte, String>[][] map;
+    public static Map<Byte, String> emptyTag = new Byte2ObjectOpenHashMap<>();
     private int playerI;
     private int playerJ;
     private final int mode;
@@ -38,9 +39,9 @@ public class ProspectingTexture extends AbstractTexture {
         this.radius = radius;
         this.mode = mode;
         if (this.mode == 1)
-            map = new HashMap[(radius * 2 - 1)][(radius * 2 - 1)];
+            map = new Byte2ObjectOpenHashMap[(radius * 2 - 1)][(radius * 2 - 1)];
         else
-            map = new HashMap[(radius * 2 - 1) * 16][(radius * 2 - 1) * 16];
+            map = new Byte2ObjectOpenHashMap[(radius * 2 - 1) * 16][(radius * 2 - 1) * 16];
     }
 
     public void updateTexture(PacketProspecting packet) {
@@ -69,7 +70,7 @@ public class ProspectingTexture extends AbstractTexture {
 
         for (int i = 0; i < wh; i++){
             for (int j = 0; j < wh; j++) {
-                HashMap<Byte, String> data = this.map[this.mode == 0 ? i : i / 16][this.mode == 0 ? j : j / 16];
+                Map<Byte, String> data = this.map[this.mode == 0 ? i : i / 16][this.mode == 0 ? j : j / 16];
                 // draw bg
                 image.setRGB(i, j, ((data == null) ^ darkMode) ? Color.darkGray.getRGB(): Color.WHITE.getRGB());
                 //draw ore

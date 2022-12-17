@@ -17,6 +17,7 @@ import gregtech.common.pipelike.cable.BlockCable;
 import gregtech.common.pipelike.fluidpipe.BlockFluidPipe;
 import gregtech.common.pipelike.itempipe.BlockItemPipe;
 import gregtech.integration.GroovyScriptCompat;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.compiler.IEnvironmentGlobal;
 import stanhebben.zenscript.expression.ExpressionCallStatic;
@@ -25,15 +26,14 @@ import stanhebben.zenscript.parser.Token;
 import stanhebben.zenscript.symbols.IZenSymbol;
 import stanhebben.zenscript.type.natives.IJavaMethod;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @BracketHandler
 @ZenRegister
 public class MetaItemBracketHandler implements IBracketHandler {
-    private static final Map<String, ItemStack> metaItemNames = new HashMap<>();
-    private static final Map<String, ItemStack> metaBlockNames = new HashMap<>();
+    private static final Map<String, ItemStack> metaItemNames = new Object2ObjectOpenHashMap<>();
+    private static final Map<String, ItemStack> metaBlockNames = new Object2ObjectOpenHashMap<>();
 
     private final IJavaMethod method;
 

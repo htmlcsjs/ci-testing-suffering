@@ -37,10 +37,10 @@ import gregtech.common.metatileentities.steam.multiblockpart.MetaTileEntitySteam
 import gregtech.common.metatileentities.steam.multiblockpart.MetaTileEntitySteamItemBus;
 import gregtech.common.metatileentities.storage.*;
 import gregtech.integration.jei.multiblock.MultiblockInfoCategory;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -129,8 +129,8 @@ public class MetaTileEntities {
     public static MetaTileEntityPassthroughHatchItem PASSTHROUGH_HATCH_ITEM;
     public static MetaTileEntityPassthroughHatchFluid PASSTHROUGH_HATCH_FLUID;
     // Used for addons if they wish to disable certain tiers of machines
-    private static final Map<String, Boolean> MID_TIER = new HashMap<>();
-    private static final Map<String, Boolean> HIGH_TIER = new HashMap<>();
+    private static final Map<String, Boolean> MID_TIER = new Object2ObjectOpenHashMap<>();
+    private static final Map<String, Boolean> HIGH_TIER = new Object2ObjectOpenHashMap<>();
     //STEAM AGE SECTION
     public static SteamCoalBoiler STEAM_BOILER_COAL_BRONZE;
     public static SteamCoalBoiler STEAM_BOILER_COAL_STEEL;

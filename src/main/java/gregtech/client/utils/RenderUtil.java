@@ -3,6 +3,7 @@ package gregtech.client.utils;
 import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.vec.Matrix4;
 import gregtech.api.gui.resources.TextureArea;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,7 +27,6 @@ import org.lwjgl.opengl.GL30;
 
 import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -207,7 +207,7 @@ public class RenderUtil {
         }
     }
 
-    private static final Map<TextureAtlasSprite, Integer> textureMap = new HashMap<>();
+    private static final Map<TextureAtlasSprite, Integer> textureMap = new Object2IntOpenHashMap<>();
 
     public static void bindTextureAtlasSprite(TextureAtlasSprite textureAtlasSprite) {
         if (textureAtlasSprite == null) {

@@ -6,6 +6,7 @@ import gregtech.api.items.toolitem.ToolMetaItem.MetaToolValueItem;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.util.function.Task;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
@@ -28,7 +29,7 @@ public class TreeChopTask implements Task {
     private boolean isLastBlockLeaves = false;
     private final MutableBlockPos currentPos = new MutableBlockPos();
     private final BlockPos startBlockPos;
-    private final Set<BlockPos> visitedBlockPos = new HashSet<>();
+    private final Set<BlockPos> visitedBlockPos = new ObjectOpenHashSet<>();
     private final List<BlockPos> woodBlockPos = new ArrayList<>();
 
     private boolean finishedSearchingBlocks = false;

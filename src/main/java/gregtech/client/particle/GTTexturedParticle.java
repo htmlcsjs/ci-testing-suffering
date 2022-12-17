@@ -1,6 +1,7 @@
 package gregtech.client.particle;
 
 import gregtech.api.gui.resources.ResourceHelper;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -10,7 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @SideOnly(Side.CLIENT)
 public class GTTexturedParticle extends GTParticle {
-    private static final Map<ResourceLocation, IGTParticleHandler> textureMap = new HashMap<>();
+    private static final Map<ResourceLocation, IGTParticleHandler> textureMap = new Object2ObjectOpenHashMap<>();
 
     private ResourceLocation customTexture;
 

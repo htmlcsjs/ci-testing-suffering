@@ -4,11 +4,15 @@ import gregtech.api.pipenet.Node;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
 import gregtech.api.unification.material.properties.WireProperties;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class EnergyNet extends PipeNet<WireProperties> {
 
@@ -16,7 +20,7 @@ public class EnergyNet extends PipeNet<WireProperties> {
     private long energyFluxPerSec;
     private long lastTime;
 
-    private final Map<BlockPos, List<RoutePath>> NET_DATA = new HashMap<>();
+    private final Map<BlockPos, List<RoutePath>> NET_DATA = new Object2ObjectOpenHashMap<>();
 
     protected EnergyNet(WorldPipeNet<WireProperties, EnergyNet> world) {
         super(world);

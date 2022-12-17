@@ -4,7 +4,8 @@ import gregtech.api.capability.GregtechCapabilities;
 import gregtech.api.items.metaitem.stats.IItemCapabilityProvider;
 import gregtech.api.terminal.TerminalRegistry;
 import gregtech.common.items.behaviors.TerminalBehaviour;
-import net.minecraft.item.Item;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -13,7 +14,10 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -95,8 +99,8 @@ public class HardwareProvider implements ICapabilityProvider, IItemCapabilityPro
     @Override
     public ICapabilityProvider createProvider(ItemStack itemStack) {
         HardwareProvider provider = new HardwareProvider();
-        provider.providers = new LinkedHashMap<>();
-        provider.itemCache = new HashMap<>();
+        provider.providers = new Object2ObjectLinkedOpenHashMap<>();
+        provider.itemCache = new Object2ObjectOpenHashMap<>();
         provider.itemStack = itemStack;
         for (Hardware hardware : TerminalRegistry.getAllHardware()) {
             Hardware instance = hardware.createHardware(itemStack);

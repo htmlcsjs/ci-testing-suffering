@@ -14,6 +14,7 @@ import gregtech.api.unification.material.properties.DustProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
@@ -35,7 +36,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public class MetaPrefixItem extends StandardMetaItem {
 
     private final OrePrefix prefix;
 
-    public static final Map<OrePrefix, OrePrefix> purifyMap = new HashMap<OrePrefix, OrePrefix>() {{
+    public static final Map<OrePrefix, OrePrefix> purifyMap = new Object2ObjectOpenHashMap<OrePrefix, OrePrefix>() {{
         put(OrePrefix.crushed, OrePrefix.crushedPurified);
         put(OrePrefix.dustImpure, OrePrefix.dust);
         put(OrePrefix.dustPure, OrePrefix.dust);

@@ -17,6 +17,8 @@ import gregtech.api.worldgen.populator.IVeinPopulator;
 import gregtech.api.worldgen.populator.SurfaceBlockPopulator;
 import gregtech.api.worldgen.populator.SurfaceRockPopulator;
 import gregtech.api.worldgen.shape.*;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
@@ -51,7 +53,7 @@ public class WorldGenRegistry {
     private final Map<String, Supplier<ShapeGenerator>> shapeGeneratorRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, Supplier<BlockFiller>> blockFillerRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, Supplier<IVeinPopulator>> veinPopulatorRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-    private final Map<Integer, String> namedDimensions = new HashMap<>();
+    private final Map<Integer, String> namedDimensions = new Int2ObjectOpenHashMap<>();
 
     private final List<OreDepositDefinition> registeredVeinDefinitions = new ArrayList<>();
     private final List<BedrockFluidDepositDefinition> registeredBedrockVeinDefinitions = new ArrayList<>();
@@ -63,7 +65,7 @@ public class WorldGenRegistry {
 
     private class WorldOreVeinCache {
         private final List<OreDepositDefinition> worldVeins;
-        private final Map<Biome, List<Entry<Integer, OreDepositDefinition>>> biomeVeins = new HashMap<>();
+        private final Map<Biome, List<Entry<Integer, OreDepositDefinition>>> biomeVeins = new Object2ObjectOpenHashMap<>();
 
         public WorldOreVeinCache(WorldProvider worldProvider) {
             this.worldVeins = registeredVeinDefinitions.stream()

@@ -1,5 +1,6 @@
 package gregtech.api.pipenet;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
@@ -11,13 +12,16 @@ import net.minecraftforge.common.util.Constants.NBT;
 
 import javax.annotation.Nonnull;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public abstract class WorldPipeNet<NodeDataType, T extends PipeNet<NodeDataType>> extends WorldSavedData {
 
     private WeakReference<World> worldRef = new WeakReference<>(null);
     protected List<T> pipeNets = new ArrayList<>();
-    protected final Map<ChunkPos, List<T>> pipeNetsByChunk = new HashMap<>();
+    protected final Map<ChunkPos, List<T>> pipeNetsByChunk = new Object2ObjectOpenHashMap<>();
 
     public WorldPipeNet(String name) {
         super(name);

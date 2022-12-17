@@ -17,6 +17,7 @@ import gregtech.client.renderer.cclop.UVMirror;
 import gregtech.client.renderer.texture.cube.*;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer.OverlayFace;
 import gregtech.client.renderer.texture.custom.*;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.BlockRenderLayer;
@@ -27,7 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +35,7 @@ import static gregtech.client.renderer.texture.cube.OrientedOverlayRenderer.Over
 
 public class Textures {
 
-    public static final Map<String, ICubeRenderer> CUBE_RENDERER_REGISTRY = new HashMap<>();
+    public static final Map<String, ICubeRenderer> CUBE_RENDERER_REGISTRY = new Object2ObjectOpenHashMap<>();
 
     private static final ThreadLocal<BlockFace> blockFaces = ThreadLocal.withInitial(BlockFace::new);
     public static final List<IIconRegister> iconRegisters = new ArrayList<>();

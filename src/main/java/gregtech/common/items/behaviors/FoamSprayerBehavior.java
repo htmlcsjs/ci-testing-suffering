@@ -3,10 +3,10 @@ package gregtech.common.items.behaviors;
 import gregtech.api.items.metaitem.stats.IItemBehaviour;
 import gregtech.api.items.metaitem.stats.IItemCapabilityProvider;
 import gregtech.api.items.metaitem.stats.IItemDurabilityManager;
-import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.material.Materials;
 import gregtech.common.blocks.BlockFrame;
 import gregtech.common.blocks.MetaBlocks;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -131,8 +131,8 @@ public class FoamSprayerBehavior implements IItemCapabilityProvider, IItemDurabi
     }
 
     private static List<BlockPos> gatherReplacableBlocks(World worldIn, BlockPos centerPos, int maxRadiusSq) {
-        HashSet<BlockPos> observedSet = new HashSet<>();
-        ArrayList<BlockPos> resultAirBlocks = new ArrayList<>();
+        Set<BlockPos> observedSet = new ObjectOpenHashSet<>();
+        List<BlockPos> resultAirBlocks = new ArrayList<>();
         observedSet.add(centerPos);
         resultAirBlocks.add(centerPos);
         Stack<EnumFacing> moveStack = new Stack<>();
@@ -161,8 +161,8 @@ public class FoamSprayerBehavior implements IItemCapabilityProvider, IItemDurabi
     }
 
     private static List<BlockPos> gatherFrameBlocks(World worldIn, BlockPos centerPos, int maxRadiusSq) {
-        HashSet<BlockPos> observedSet = new HashSet<>();
-        ArrayList<BlockPos> resultFrameBlocks = new ArrayList<>();
+        Set<BlockPos> observedSet = new ObjectOpenHashSet<>();
+        List<BlockPos> resultFrameBlocks = new ArrayList<>();
         observedSet.add(centerPos);
         resultFrameBlocks.add(centerPos);
         IBlockState frameState = null;

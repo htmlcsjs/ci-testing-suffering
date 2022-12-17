@@ -32,6 +32,7 @@ import gregtech.loaders.MaterialInfoLoader;
 import gregtech.loaders.OreDictionaryLoader;
 import gregtech.loaders.recipe.CraftingComponent;
 import gregtech.loaders.recipe.GTRecipeManager;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -54,7 +55,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.function.Function;
 
 import static gregtech.common.blocks.MetaBlocks.*;
@@ -178,7 +178,7 @@ public class CommonProxy {
         BlockOre block = new BlockOre(material, stoneTypes);
         block.setRegistryName("ore_" + material + "_" + index);
         for (StoneType stoneType : stoneTypes) {
-            GregTechAPI.oreBlockTable.computeIfAbsent(material, m -> new HashMap<>()).put(stoneType, block);
+            GregTechAPI.oreBlockTable.computeIfAbsent(material, m -> new Object2ObjectOpenHashMap<>()).put(stoneType, block);
         }
         ORES.add(block);
     }

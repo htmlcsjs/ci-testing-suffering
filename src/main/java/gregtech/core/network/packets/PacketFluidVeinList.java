@@ -3,6 +3,7 @@ package gregtech.core.network.packets;
 import gregtech.api.network.IClientExecutor;
 import gregtech.api.network.IPacket;
 import gregtech.api.worldgen.bedrockFluids.BedrockFluidVeinHandler;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +12,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class PacketFluidVeinList implements IPacket, IClientExecutor {
 
     private Map<BedrockFluidVeinHandler.FluidVeinWorldEntry, Integer> map;
 
-    public PacketFluidVeinList(HashMap<BedrockFluidVeinHandler.FluidVeinWorldEntry, Integer> map) {
+    public PacketFluidVeinList(Map<BedrockFluidVeinHandler.FluidVeinWorldEntry, Integer> map) {
         this.map = map;
     }
 
@@ -35,7 +35,7 @@ public class PacketFluidVeinList implements IPacket, IClientExecutor {
 
     @Override
     public void decode(PacketBuffer buf) {
-        this.map = new HashMap<>();
+        this.map = new Object2IntOpenHashMap<>();
         int size = buf.readVarInt();
         for (int i = 0; i < size; i++) {
             NBTTagCompound tag = ByteBufUtils.readTag(buf);

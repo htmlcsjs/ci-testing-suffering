@@ -3,8 +3,9 @@ package gregtech.client.renderer.scene;
 import codechicken.lib.vec.Vector3;
 import gregtech.api.util.Position;
 import gregtech.api.util.PositionedRect;
-import gregtech.client.utils.RenderUtil;
 import gregtech.api.util.Size;
+import gregtech.client.utils.RenderUtil;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -32,7 +33,6 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -64,7 +64,7 @@ public abstract class WorldSceneRenderer {
 
     public WorldSceneRenderer(World world) {
         this.world = world;
-        renderedBlocksMap = new LinkedHashMap<>();
+        renderedBlocksMap = new Object2ObjectLinkedOpenHashMap<>();
     }
 
     public WorldSceneRenderer setBeforeWorldRender(Consumer<WorldSceneRenderer> callback) {

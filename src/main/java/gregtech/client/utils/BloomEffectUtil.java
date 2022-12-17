@@ -1,11 +1,10 @@
 package gregtech.client.utils;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import gregtech.client.renderer.ICustomRenderFast;
 import gregtech.client.shader.Shaders;
 import gregtech.client.shader.postprocessing.BloomEffect;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -21,6 +20,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -52,7 +52,7 @@ public class BloomEffectUtil {
                 throw new RuntimeException(e);
             }
         }
-        RENDER_FAST = Maps.newHashMap();
+        RENDER_FAST = new Object2ObjectOpenHashMap<>();
     }
 
     public static void initBloomRenderLayer(BufferBuilder[] worldRenderers) {
@@ -232,7 +232,7 @@ public class BloomEffectUtil {
     }
 
     public static void requestCustomBloom(IBloomRenderFast handler, Consumer<BufferBuilder> render) {
-        RENDER_FAST.computeIfAbsent(handler, (x)->Lists.newLinkedList()).add(render);
+        RENDER_FAST.computeIfAbsent(handler, (x) -> new LinkedList<>()).add(render);
     }
 
     public interface IBloomRenderFast extends ICustomRenderFast {

@@ -29,6 +29,8 @@ import gregtech.common.terminal.app.teleport.TeleportApp;
 import gregtech.common.terminal.app.worldprospector.WorldProspectorARApp;
 import gregtech.common.terminal.hardware.BatteryHardware;
 import gregtech.common.terminal.hardware.DeviceHardware;
+import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
@@ -45,10 +47,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TerminalRegistry {
-    protected static final Map<String, AbstractApplication> APP_REGISTER = new LinkedHashMap<>();
-    protected static final Map<String, Hardware> HW_REGISTER = new LinkedHashMap<>();
-    protected static final Map<String, List<Hardware>[]> APP_HW_DEMAND = new HashMap<>();
-    protected static final Map<String, List<ItemStack>[]> APP_UPGRADE_CONDITIONS = new HashMap<>();
+    protected static final Map<String, AbstractApplication> APP_REGISTER = new Object2ObjectLinkedOpenHashMap<>();
+    protected static final Map<String, Hardware> HW_REGISTER = new Object2ObjectLinkedOpenHashMap<>();
+    protected static final Map<String, List<Hardware>[]> APP_HW_DEMAND = new Object2ObjectOpenHashMap<>();
+    protected static final Map<String, List<ItemStack>[]> APP_UPGRADE_CONDITIONS = new Object2ObjectOpenHashMap<>();
     protected static final List<String> DEFAULT_APPS = new ArrayList<>();
     @SideOnly(Side.CLIENT)
     public static File TERMINAL_PATH;

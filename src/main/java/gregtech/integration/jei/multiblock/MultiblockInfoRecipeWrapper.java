@@ -21,6 +21,8 @@ import gregtech.client.renderer.scene.ImmediateWorldSceneRenderer;
 import gregtech.client.renderer.scene.WorldSceneRenderer;
 import gregtech.client.utils.RenderUtil;
 import gregtech.client.utils.TrackedDummyWorld;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -85,7 +87,7 @@ public class MultiblockInfoRecipeWrapper implements IRecipeWrapper {
 
     private final MultiblockControllerBase controller;
     private final MBPattern[] patterns;
-    private final Map<GuiButton, Runnable> buttons = new HashMap<>();
+    private final Map<GuiButton, Runnable> buttons = new Object2ObjectOpenHashMap<>();
     private RecipeLayout recipeLayout;
     private final List<ItemStack> allItemStackInputs = new ArrayList<>();
 
@@ -332,7 +334,7 @@ public class MultiblockInfoRecipeWrapper implements IRecipeWrapper {
             TraceabilityPredicate predicates = patterns[currentRendererPage].predicateMap.get(rayTraceResult.getBlockPos());
             if (predicates != null) {
                 BlockWorldState worldState = new BlockWorldState();
-                worldState.update(renderer.world, rayTraceResult.getBlockPos(), new PatternMatchContext(), new HashMap<>(), new HashMap<>(), predicates);
+                worldState.update(renderer.world, rayTraceResult.getBlockPos(), new PatternMatchContext(), new Object2IntOpenHashMap<>(), new Object2IntOpenHashMap<>(), predicates);
                 for (TraceabilityPredicate.SimplePredicate common : predicates.common) {
                     if (common.test(worldState)) {
                         predicateTips = common.getToolTips(predicates);
@@ -483,7 +485,7 @@ public class MultiblockInfoRecipeWrapper implements IRecipeWrapper {
 
     @Nonnull
     private Collection<PartInfo> gatherStructureBlocks(World world, @Nonnull Map<BlockPos, BlockInfo> blocks, Set<ItemStackKey> parts) {
-        Map<ItemStackKey, PartInfo> partsMap = new HashMap<>();
+        Map<ItemStackKey, PartInfo> partsMap = new Object2ObjectOpenHashMap<>();
         for (Entry<BlockPos, BlockInfo> entry : blocks.entrySet()) {
             BlockPos pos = entry.getKey();
             IBlockState state = world.getBlockState(pos);
@@ -535,7 +537,7 @@ public class MultiblockInfoRecipeWrapper implements IRecipeWrapper {
     @SuppressWarnings("NewExpressionSideOnly")
     @Nonnull
     private MBPattern initializePattern(@Nonnull MultiblockShapeInfo shapeInfo, @Nonnull Set<ItemStackKey> parts) {
-        Map<BlockPos, BlockInfo> blockMap = new HashMap<>();
+        Map<BlockPos, BlockInfo> blockMap = new Object2ObjectOpenHashMap<>();
         MultiblockControllerBase controllerBase = null;
         BlockInfo[][][] blocks = shapeInfo.getBlocks();
         for (int x = 0; x < blocks.length; x++) {
@@ -575,7 +577,7 @@ public class MultiblockInfoRecipeWrapper implements IRecipeWrapper {
         world.updateEntities();
         world.setRenderFilter(pos -> worldSceneRenderer.renderedBlocksMap.keySet().stream().anyMatch(c -> c.contains(pos)));
 
-        Map<BlockPos, TraceabilityPredicate> predicateMap = new HashMap<>();
+        Map<BlockPos, TraceabilityPredicate> predicateMap = new Object2ObjectOpenHashMap<>();
         if (controllerBase != null) {
             controllerBase.structurePattern.cache.forEach((pos, blockInfo) -> predicateMap.put(BlockPos.fromLong(pos), (TraceabilityPredicate) blockInfo.getInfo()));
         }

@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import gregtech.api.GTValues;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -12,12 +13,11 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MaterialIconType {
 
-    public static final Map<String, MaterialIconType> ICON_TYPES = new HashMap<>();
+    public static final Map<String, MaterialIconType> ICON_TYPES = new Object2ObjectOpenHashMap<>();
 
     static int idCounter = 0;
 

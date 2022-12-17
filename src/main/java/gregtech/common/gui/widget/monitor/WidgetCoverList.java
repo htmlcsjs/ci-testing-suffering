@@ -13,6 +13,7 @@ import gregtech.api.util.Size;
 import gregtech.client.renderer.handler.BlockPosHighlightRenderer;
 import gregtech.client.utils.RenderUtil;
 import gregtech.common.covers.CoverDigitalInterface;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -25,7 +26,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -37,7 +37,7 @@ public class WidgetCoverList extends ScrollableListWidget {
 
     public WidgetCoverList(int xPosition, int yPosition, int width, int slotSize, List<CoverDigitalInterface> covers, CoverDigitalInterface bindCover, Consumer<CoverDigitalInterface> onSelected) {
         super(xPosition, yPosition, width, slotSize * 18);
-        widgetMap = new HashMap<>();
+        widgetMap = new Object2ObjectOpenHashMap<>();
         this.onSelected = onSelected;
         for (CoverDigitalInterface cover : covers) {
             ItemStack itemStack = cover.coverHolder.getStackForm();

@@ -9,6 +9,7 @@ import gregtech.api.util.ItemStackKey;
 import gregtech.common.covers.*;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipe;
 import gregtech.common.pipelike.itempipe.tile.TileEntityItemPipeTickable;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -28,7 +29,7 @@ public class ItemNetHandler implements IItemHandler {
     private TileEntityItemPipeTickable tickingPipe;
     private final World world;
     private final EnumFacing facing;
-    private final Map<FacingPos, Integer> simulatedTransfersGlobalRoundRobin = new HashMap<>();
+    private final Map<FacingPos, Integer> simulatedTransfersGlobalRoundRobin = new Object2IntOpenHashMap<>();
     private int simulatedTransfers = 0;
     private final ItemStackHandler testHandler = new ItemStackHandler(1);
 

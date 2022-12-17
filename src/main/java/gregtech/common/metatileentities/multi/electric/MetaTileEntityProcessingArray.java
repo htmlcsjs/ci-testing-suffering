@@ -29,13 +29,13 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.Tuple;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -273,7 +273,7 @@ public class MetaTileEntityProcessingArray extends RecipeMapMultiblockController
             }
 
             // apply maintenance penalties
-            Tuple<Integer, Double> maintenanceValues = getMaintenanceValues();
+            Pair<Integer, Double> maintenanceValues = getMaintenanceValues();
 
             int originalTier = Math.max(0, GTUtility.getTierByVoltage(recipeEUt / Math.max(1, this.parallelRecipesPerformed)));
             int numOverclocks = Math.min(this.machineTier, GTUtility.getTierByVoltage(getMaxVoltage())) - originalTier;
@@ -286,7 +286,7 @@ public class MetaTileEntityProcessingArray extends RecipeMapMultiblockController
             return standardOverclockingLogic(
                     recipeEUt,
                     getMaximumOverclockVoltage(),
-                    (int) Math.round(recipeDuration * maintenanceValues.getSecond()),
+                    (int) Math.round(recipeDuration * maintenanceValues.getValue()),
                     numOverclocks,
                     getOverclockingDurationDivisor(),
                     getOverclockingVoltageMultiplier()
